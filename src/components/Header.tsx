@@ -9,7 +9,8 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ theme, onToggleTheme }) => {
   return (
-    <header className={`w-full py-6 px-4 ${theme === 'dark' ? 'bg-gray-900' : 'bg-gray-200`}>
+  <header className={`w-full py-6 px-4 ${theme === 'dark' ? 'bg-gray-900' : 'bg-gray-200'}`}>
+
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <div className="flex items-center space-x-2">
            <MountainSnow className="w-8 h-8 text-indigo-500" />
