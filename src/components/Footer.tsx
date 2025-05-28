@@ -3,7 +3,7 @@ import { HeartIcon } from 'lucide-react';
 
 const Footer: React.FC = () => {
   return (
-   <footer className="w-full py-6 px-4 bg-gray-900 mt-12">
+   <footer className="w-full py-6 px-4 mt-12">
   <div className="max-w-7xl mx-auto text-center">
     <p className="text-cyan-500 text-sm">
       <HeartIcon className="inline-block w-4 h-4 text-red-500 mx-1" /> {' '}
