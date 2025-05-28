@@ -16,7 +16,7 @@ const Footer: React.FC = () => {
        deploy.sudo-self.com
       </a>
     </p>
-    <div className="mt-2 text-gray-500 text-xs">
+    <div className="mt-2 text-gray-200 text-xs">
       buttons are not official or affiliated with any platforms
     </div>
   </div>
