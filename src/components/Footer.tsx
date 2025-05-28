@@ -13,11 +13,11 @@ const Footer: React.FC = () => {
         rel="noopener noreferrer"
         className="hover:underline text-cyan-500"
       >
-        repo-buttons.vercel.app
+       deploy.sudo-self.com
       </a>
     </p>
     <div className="mt-2 text-gray-500 text-xs">
-      repo buttons is not official or affiliated with any platforms
+      buttons are not official or affiliated with any platforms
     </div>
   </div>
 </footer>
