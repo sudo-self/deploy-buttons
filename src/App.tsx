@@ -52,7 +52,7 @@ function App() {
   };
 
   return (
-    <div className={`min-h-screen ${theme === 'dark' ? 'bg-gray-900 text-white' : 'bg-gray-50 text-gray-900'}`}>
+    <div className={`min-h-screen ${theme === 'dark' ? 'bg-gray-900 text-gray-50' : 'bg-gray-200 text-gray-900'}`}>
       <Header theme={theme} onToggleTheme={toggleTheme} />
       
       <main className="max-w-7xl mx-auto px-4 py-12">
