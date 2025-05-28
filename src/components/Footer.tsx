@@ -6,14 +6,14 @@ const Footer: React.FC = () => {
    <footer className="w-full py-6 px-4 bg-gray-900 mt-12">
   <div className="max-w-7xl mx-auto text-center">
     <p className="text-cyan-500 text-sm">
-      made with <HeartIcon className="inline-block w-4 h-4 text-red-500 mx-1" /> {' '}
+      <HeartIcon className="inline-block w-4 h-4 text-red-500 mx-1" /> {' '}
       <a
         href="https://repo-buttons.vercel.app"
         target="_blank"
         rel="noopener noreferrer"
         className="hover:underline text-cyan-500"
       >
-        sudo-self
+        repo-buttons.vercel.app
       </a>
     </p>
     <div className="mt-2 text-gray-500 text-xs">
