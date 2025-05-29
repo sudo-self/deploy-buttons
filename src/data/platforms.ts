@@ -141,15 +141,8 @@ export const deployPlatforms: DeployPlatform[] = [
   buttonMarkdown: (username: string, repo: string) =>
     `[![Deploy to Firebase](https://img.shields.io/badge/Deploy_to_Firebase-FFA000?logo=firebase&logoColor=white&style=for-the-badge)](https://console.firebase.google.com/project/_/hosting/sites)`,
   buttonHtml: (username: string, repo: string) =>
-    `<a href="https://console.firebase.google.com/project/_/hosting/sites" target="_blank" rel="noopener noreferrer"
-      class="inline-flex items-center justify-center gap-2 bg-[#FFA000] text-white text-sm font-medium px-4 py-2 rounded hover:opacity-90 whitespace-nowrap">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="white" viewBox="0 0 256 351" class="w-4 h-4">
-        <path d="M1.92 270.47L50.29 2.67c.57-3.17 4.76-4.06 6.42-1.26L105.44 99.7c.37.63 1.32.5 1.46-.2L124.55 2.4c.39-2.2 3.33-2.9 4.76-1.13l123.24 171.4c1.07 1.45.04 3.5-1.74 3.5H141.5c-.72 0-1.34.49-1.5 1.19L116.63 347.3c-.46 2.02-3.26 2.49-4.34.69L1.99 274.09a2 2 0 01-.07-3.62z"/>
-      </svg>
-      Deploy to Firebase
-    </a>`
+    `<a href="https://console.firebase.google.com/project/_/hosting/sites"><img src="https://img.shields.io/badge/Deploy_to_Firebase-FFA000?logo=firebase&logoColor=white&style=for-the-badge" alt="Deploy to Firebase"></a>`
 }
-
 ];
 
 
