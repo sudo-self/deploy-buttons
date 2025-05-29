@@ -109,4 +109,16 @@ export const deployPlatforms: DeployPlatform[] = [
     buttonHtml: (username: string, repo: string) => 
       `<a href="https://stackblitz.com/github/${username}/${repo}"><img src="https://developer.stackblitz.com/img/open_in_stackblitz.svg" alt="Open in StackBlitz"></a>`
   }
+  {
+  id: 'glitch',
+  name: 'Glitch',
+  logo: 'Fish',
+  color: '#EC0F8B',
+  deployUrl: (username: string, repo: string) =>
+    `https://glitch.com/edit/#!/import/github/${username}/${repo}`,
+  buttonMarkdown: (username: string, repo: string) =>
+    `[![Remix on Glitch](https://cdn.glitch.com/2703baf2-b643-4da7-ab91-7ee2a2d00b5b%2Fremix-button.svg)](https://glitch.com/edit/#!/import/github/${username}/${repo})`,
+  buttonHtml: (username: string, repo: string) =>
+    `<a href="https://glitch.com/edit/#!/import/github/${username}/${repo}"><img src="https://cdn.glitch.com/2703baf2-b643-4da7-ab91-7ee2a2d00b5b%2Fremix-button.svg" alt="Remix on Glitch"></a>`
+}
 ];
