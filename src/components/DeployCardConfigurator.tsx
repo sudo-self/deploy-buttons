@@ -47,7 +47,8 @@ export default function AboutModal() {
              Donations
             </a>
           </div>
-          <p>BTC: 32WfTVZTzoJXSTdgfLer1Ad3SMVvjokkbX</p>
+          <p>BTC: 32WfTVZTzoJXSTdgfLer1Ad3SMVvjokkbX</p><br />
+          <p>ETH: 0xc0b2C8d8d63C333767Ce3Fad48649A6a14aE2037</p> 
         </div>
       </div>
     </div>
