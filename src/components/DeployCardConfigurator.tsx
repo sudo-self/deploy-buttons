@@ -1,4 +1,5 @@
 import React, { useState, ChangeEvent } from 'react';
+import { DeployButton } from './DeployButton'; 
 
 interface DeployForm {
   id: string;
@@ -29,27 +30,31 @@ const DeployCardConfigurator: React.FC = () => {
     setForm((prevForm) => ({ ...prevForm, [name]: value }));
   };
 
+  // Generate the deploy URL based on the form and user input
   const deployUrl = `${form.baseUrl}/${username}/${repo}`;
   const badgeUrl = `https://img.shields.io/badge/${encodeURIComponent(
     form.buttonText.replaceAll(' ', '_')
   )}-${form.color.replace('#', '')}?logo=${form.badgeLogo}&logoColor=white&style=for-the-badge`;
 
-  const cardObject = {
+  const platform = {
     id: form.id,
     name: form.name,
     logo: form.logo,
     color: form.color,
-    deployUrl: (username: string, repo: string) =>
-      `${form.baseUrl}/${username}/${repo}`,
+    baseUrl: form.baseUrl,
+    buttonText: form.buttonText,
+    badgeLogo: form.badgeLogo,
+    deployUrl: deployUrl,
     buttonMarkdown: (username: string, repo: string) =>
-      `[![${form.buttonText}](${badgeUrl})](${form.baseUrl}/${username}/${repo})`,
+      `[![${form.buttonText}](${badgeUrl})](${deployUrl})`,
     buttonHtml: (username: string, repo: string) =>
-      `<a href="${form.baseUrl}/${username}/${repo}"><img src="${badgeUrl}" alt="${form.buttonText}"></a>`,
+      `<a href="${deployUrl}"><img src="${badgeUrl}" alt="${form.buttonText}"></a>`,
   };
 
   return (
     <div className="max-w-xl mx-auto p-4 space-y-4">
       <h2 className="text-xl font-semibold">Deploy Card Configurator</h2>
+
       <div className="grid grid-cols-2 gap-4">
         {(
           Object.keys(form) as (keyof DeployForm)[]
@@ -60,7 +65,7 @@ const DeployCardConfigurator: React.FC = () => {
             value={form[field]}
             onChange={handleChange}
             placeholder={field}
-            className="p-2 border rounded text-black dark:text-white" // text color adjustments
+            className="p-2 border rounded text-black dark:text-white"
           />
         ))}
         <input
@@ -68,29 +73,30 @@ const DeployCardConfigurator: React.FC = () => {
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           placeholder="GitHub Username"
-          className="p-2 border rounded text-black dark:text-white" 
+          className="p-2 border rounded text-black dark:text-white"
         />
         <input
           name="repo"
           value={repo}
           onChange={(e) => setRepo(e.target.value)}
           placeholder="GitHub Repo"
-          className="p-2 border rounded text-black dark:text-white" 
+          className="p-2 border rounded text-black dark:text-white"
         />
       </div>
 
-      <pre className="bg-gray-100 p-4 rounded text-xs overflow-x-auto">
-        {JSON.stringify(cardObject, null, 2)}
-      </pre>
-
-      <div className="pt-4">
-        <a href={deployUrl} target="_blank" rel="noopener noreferrer">
-          <img src={badgeUrl} alt={form.buttonText} />
-        </a>
+      <h3 className="text-lg font-semibold mt-6">Live Preview</h3>
+      <div className="border p-4 rounded shadow-lg mt-4">
+        {/* Display a single deploy card preview */}
+        <DeployButton
+          platform={platform}
+          username={username}
+          repo={repo}
+        />
       </div>
     </div>
   );
 };
 
 export default DeployCardConfigurator;
+
 
