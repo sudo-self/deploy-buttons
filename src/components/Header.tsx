@@ -25,6 +25,19 @@ const Header: React.FC<HeaderProps> = ({ theme, onToggleTheme }) => {
         </div>
         
         <div className="flex items-center space-x-4">
+          {/* About Button */}
+          <button
+            onClick={() => setShowAboutModal(true)}
+            className={`p-2 rounded-lg transition-colors duration-200 ${
+              theme === 'dark' 
+                ? 'text-gray-400 hover:text-white hover:bg-gray-800' 
+                : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
+            }`}
+            aria-label="Open About modal"
+          >
+            About
+          </button>
+
           {/* Theme Toggle Button */}
           <button
             onClick={onToggleTheme}
@@ -40,19 +53,6 @@ const Header: React.FC<HeaderProps> = ({ theme, onToggleTheme }) => {
             ) : (
               <MoonIcon className="w-5 h-5" />
             )}
-          </button>
-
-          {/* About Button */}
-          <button
-            onClick={() => setShowAboutModal(true)}
-            className={`p-2 rounded-lg transition-colors duration-200 ${
-              theme === 'dark' 
-                ? 'text-gray-400 hover:text-white hover:bg-gray-800' 
-                : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
-            }`}
-            aria-label="Open About modal"
-          >
-            About
           </button>
         </div>
       </div>
