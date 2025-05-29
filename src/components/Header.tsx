@@ -11,6 +11,10 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({ theme, onToggleTheme }) => {
   const [showConfigurator, setShowConfigurator] = useState(false);
 
+  const closeConfigurator = () => {
+    setShowConfigurator(false);  // Close the configurator
+  };
+
   return (
     <header className={`w-full py-6 px-4 ${theme === 'dark' ? 'bg-gray-900' : 'bg-gray-200'}`}>
       <div className="max-w-7xl mx-auto flex items-center justify-between">
@@ -60,7 +64,8 @@ const Header: React.FC<HeaderProps> = ({ theme, onToggleTheme }) => {
           <div className="bg-white dark:bg-gray-900 p-6 rounded-lg max-w-2xl w-full relative">
             <button
               className="absolute top-2 right-2 text-gray-500 hover:text-gray-800 dark:hover:text-white"
-              onClick={() => setShowConfigurator(false)}
+              onClick={closeConfigurator}  // Close modal on click
+              aria-label="Close configurator"
             >
               ✕
             </button>
@@ -73,6 +78,7 @@ const Header: React.FC<HeaderProps> = ({ theme, onToggleTheme }) => {
 };
 
 export default Header;
+
 
 
 
