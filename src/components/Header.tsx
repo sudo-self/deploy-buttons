@@ -9,15 +9,16 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ theme, onToggleTheme }) => {
-  const [showConfigurator, setShowConfigurator] = useState(false); 
+  const [showConfigurator, setShowConfigurator] = useState(false);
 
   return (
     <header className={`w-full py-6 px-4 ${theme === 'dark' ? 'bg-gray-900' : 'bg-gray-200'}`}>
-
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <div className="flex items-center space-x-2">
-           <MountainSnow className="w-8 h-8 text-indigo-500" />
-          <h1 className={`text-2xl font-bold ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>Repo Buttons</h1>
+          <MountainSnow className="w-8 h-8 text-indigo-500" />
+          <h1 className={`text-2xl font-bold ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+            Repo Buttons
+          </h1>
         </div>
         
         <div className="flex items-center space-x-4">
@@ -67,11 +68,11 @@ const Header: React.FC<HeaderProps> = ({ theme, onToggleTheme }) => {
           </div>
         </div>
       )}
-
     </header>
   );
 };
 
 export default Header;
+
 
 
