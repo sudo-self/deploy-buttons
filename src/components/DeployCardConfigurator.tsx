@@ -30,7 +30,7 @@ const DeployCardConfigurator: React.FC = () => {
     setForm((prevForm) => ({ ...prevForm, [name]: value }));
   };
 
-  // Generate based on user input
+  // Generate the deploy URL based on the form and user input
   const deployUrl = `${form.baseUrl}/${username}/${repo}`;
   const badgeUrl = `https://img.shields.io/badge/${encodeURIComponent(
     form.buttonText.replaceAll(' ', '_')
@@ -56,7 +56,7 @@ const DeployCardConfigurator: React.FC = () => {
       <h2 className="text-xl font-semibold">Deploy Card Configurator</h2>
 
       <div className="grid grid-cols-2 gap-4">
-      
+        {/* Render fields from the form state dynamically */}
         {(
           Object.keys(form) as (keyof DeployForm)[]
         ).map((field) => (
@@ -65,7 +65,7 @@ const DeployCardConfigurator: React.FC = () => {
             <input
               id={field}
               name={field}
-              value={form[field as keyof DeployForm]}
+              value={form[field as keyof DeployForm]} // Ensure types are handled correctly
               onChange={handleChange}
               placeholder={field}
               className="p-2 border rounded text-black dark:text-white"
@@ -112,6 +112,3 @@ const DeployCardConfigurator: React.FC = () => {
 };
 
 export default DeployCardConfigurator;
-
-
-
