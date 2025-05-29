@@ -12,7 +12,7 @@ const Header: React.FC<HeaderProps> = ({ theme, onToggleTheme }) => {
   const [showConfigurator, setShowConfigurator] = useState(false);
 
   const closeConfigurator = () => {
-    setShowConfigurator(false);  // Close the configurator
+    setShowConfigurator(false);  
   };
 
   return (
@@ -64,7 +64,7 @@ const Header: React.FC<HeaderProps> = ({ theme, onToggleTheme }) => {
           <div className="bg-white dark:bg-gray-900 p-6 rounded-lg max-w-2xl w-full relative">
             <button
               className="absolute top-2 right-2 text-gray-500 hover:text-gray-800 dark:hover:text-white"
-              onClick={closeConfigurator}  // Close modal on click
+              onClick={closeConfigurator} 
               aria-label="Close configurator"
             >
               ✕
