@@ -1,0 +1,8 @@
+{
+  "projects": {
+    "default": "deploy-buttons",
+    "deploy": "deploy-buttons"
+  },
+  "targets": {},
+  "etags": {}
+}

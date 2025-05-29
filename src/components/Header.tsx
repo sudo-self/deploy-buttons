@@ -80,12 +80,12 @@ const Header: React.FC<HeaderProps> = ({ theme, onToggleTheme }) => {
               <div className="flex items-center space-x-2">
                 <i className="fa-brands fa-github text-white text-lg" aria-hidden="true"></i>
                 <a
-                  href="https://github.com/sudo-self/repo-buttons"
+                  href="https://deploy-buttons.web.app"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:underline text-blue-400"
                 >
-                  source code
+                  deploy-buttons.web.app
                 </a>
               </div>
 
