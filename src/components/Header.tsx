@@ -72,7 +72,7 @@ const Header: React.FC<HeaderProps> = ({ theme, onToggleTheme }) => {
             <h2 className="text-2xl font-bold mb-4">Hello World!</h2>
 
             <p className="mb-4">
-              Welcome to the Deploy Button Builder — a utility for generating deployment markdown and buttons,
+              Welcome to the Deploy Buttons — a utility for generating deploy buttons in markdown and html,
               developed by <span className="font-semibold">sudo-self</span>.
             </p>
 
