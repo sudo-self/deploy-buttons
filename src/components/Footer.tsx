@@ -13,7 +13,7 @@ const Footer: React.FC = () => {
         rel="noopener noreferrer"
         className="hover:underline text-cyan-500"
       >
-      Deploy-Buttons.web.app
+      Deploy-Buttons
       </a>
     </p>
     <div className="mt-2 text-gray-600 text-xs">
