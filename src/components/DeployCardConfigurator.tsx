@@ -23,10 +23,20 @@ const DeployCardConfigurator: React.FC = () => {
 
   const [username, setUsername] = useState<string>('your-username');
   const [repo, setRepo] = useState<string>('your-repo');
+  const [error, setError] = useState<string>('');
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setForm((prevForm) => ({ ...prevForm, [name]: value }));
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!username.trim() || !repo.trim()) {
+      setError('Both username and repository name are required');
+      return;
+    }
+    setError('');
   };
 
   // Generate the deploy URL based on the form and user input
@@ -50,68 +60,69 @@ const DeployCardConfigurator: React.FC = () => {
   };
 
   return (
-    <div className="max-w-xl mx-auto p-4 space-y-4">
-      <h2 className="text-xl font-semibold">Deploy Card Configurator</h2>
+    <div className="w-full max-w-2xl mx-auto bg-gray-800 rounded-lg shadow-xl overflow-hidden transform transition-all hover:shadow-2xl duration-300">
+      <div className="px-6 py-8">
+        <div className="flex items-center justify-center mb-6">
+          <h2 className="text-2xl font-bold text-white">Deploy Card Configurator</h2>
+        </div>
 
-      <div className="grid grid-cols-2 gap-4">
-        {(
-          Object.keys(form) as (keyof DeployForm)[]
-        ).map((field) => (
-          <div key={field} className="flex flex-col space-y-1">
-            <label htmlFor={field} className="text-sm text-gray-700">
-              {field}
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div>
+            <label htmlFor="username" className="block text-sm font-medium text-gray-300 mb-1">
+              GitHub Username
             </label>
             <input
-              id={field}
-              name={field}
-              value={form[field]}
-              onChange={handleChange}
-              className="p-2 border rounded text-black dark:text-white"
+              type="text"
+              id="username"
+              name="username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-200"
             />
           </div>
-        ))}
-        <div className="flex flex-col space-y-1">
-          <label htmlFor="username" className="text-sm text-gray-700">
-            GitHub Username
-          </label>
-          <input
-            id="username"
-            name="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            className="p-2 border rounded text-black dark:text-white"
-          />
-        </div>
-        <div className="flex flex-col space-y-1">
-          <label htmlFor="repo" className="text-sm text-gray-700">
-            GitHub Repo
-          </label>
-          <input
-            id="repo"
-            name="repo"
-            value={repo}
-            onChange={(e) => setRepo(e.target.value)}
-            className="p-2 border rounded text-black dark:text-white"
-          />
-        </div>
-      </div>
 
-      <h3 className="text-lg font-semibold mt-6">Live Preview</h3>
-      <div className="border p-4 rounded shadow-lg mt-4">
-        <div className="flex flex-col space-y-2">
-          {/* Render the deploy button directly here */}
+          <div>
+            <label htmlFor="repo" className="block text-sm font-medium text-gray-300 mb-1">
+              Repository Name
+            </label>
+            <input
+              type="text"
+              id="repo"
+              name="repo"
+              value={repo}
+              onChange={(e) => setRepo(e.target.value)}
+              className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-200"
+            />
+          </div>
+
+          {error && (
+            <div className="text-red-400 text-sm py-2 px-3 bg-red-900/30 rounded-md">
+              {error}
+            </div>
+          )}
+
+          <button
+            type="submit"
+            className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all duration-200 transform hover:scale-[1.02]"
+          >
+            Generate Deploy Button
+          </button>
+        </form>
+
+        <h3 className="text-lg font-semibold mt-6 text-white">Live Preview</h3>
+        <div className="border p-4 rounded shadow-lg mt-4 bg-gray-700 text-white">
           <a
             href={deployUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="p-2 border rounded bg-blue-500 text-white"
+            className="p-2 border rounded bg-indigo-600 text-white"
           >
             {form.buttonText}
           </a>
 
           <h4 className="font-medium mt-4">Generated Code</h4>
           <div className="overflow-auto max-h-60">
-            <pre className="text-sm bg-gray-100 p-2 rounded whitespace-pre-wrap break-words">
+            <pre className="text-sm bg-gray-800 p-2 rounded whitespace-pre-wrap break-words">
               {`{
   id: '${platform.id}',
   name: '${platform.name}',
@@ -133,6 +144,7 @@ const DeployCardConfigurator: React.FC = () => {
 };
 
 export default DeployCardConfigurator;
+
 
 
 
