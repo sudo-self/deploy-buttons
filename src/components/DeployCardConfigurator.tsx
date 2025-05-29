@@ -12,13 +12,13 @@ interface DeployForm {
 
 const DeployCardConfigurator: React.FC = () => {
   const [form, setForm] = useState<DeployForm>({
-    id: 'replit',
-    name: 'Replit',
-    logo: 'Zap',
-    color: '#667881',
-    baseUrl: 'https://replit.com/github',
-    buttonText: 'Run on Replit',
-    badgeLogo: 'replit',
+    id: 'vercel',
+    name: 'Vercel',
+    logo: 'Vercel',
+    color: '#000000',
+    baseUrl: 'https://vercel.com/new/clone?repository-url=https://github.com/',
+    buttonText: 'Deploy with Vercel',
+    badgeLogo: 'vercel',
   });
 
   const [username, setUsername] = useState<string>('your-username');
@@ -30,10 +30,24 @@ const DeployCardConfigurator: React.FC = () => {
   };
 
   // Generate the deploy URL based on the form and user input
-  const deployUrl = `${form.baseUrl}/${username}/${repo}`;
+  const deployUrl = `${form.baseUrl}${username}/${repo}`;
   const badgeUrl = `https://img.shields.io/badge/${encodeURIComponent(
     form.buttonText.replaceAll(' ', '_')
   )}-${form.color.replace('#', '')}?logo=${form.badgeLogo}&logoColor=white&style=for-the-badge`;
+
+  // The output format based on user input
+  const platform = {
+    id: form.id,
+    name: form.name,
+    logo: form.logo,
+    color: form.color,
+    deployUrl: (username: string, repo: string) =>
+      `${form.baseUrl}${username}/${repo}`,
+    buttonMarkdown: (username: string, repo: string) =>
+      `[![${form.buttonText}](${badgeUrl})](${deployUrl})`,
+    buttonHtml: (username: string, repo: string) =>
+      `<a href="${deployUrl}"><img src="${badgeUrl}" alt="${form.buttonText}"></a>`,
+  };
 
   return (
     <div className="max-w-xl mx-auto p-4 space-y-4">
@@ -43,35 +57,52 @@ const DeployCardConfigurator: React.FC = () => {
         {(
           Object.keys(form) as (keyof DeployForm)[]
         ).map((field) => (
+          <div key={field} className="flex flex-col space-y-1">
+            <label htmlFor={field} className="text-sm text-gray-700">
+              {field}
+            </label>
+            <input
+              id={field}
+              name={field}
+              value={form[field]}
+              onChange={handleChange}
+              placeholder={`Enter ${field}`}
+              className="p-2 border rounded text-black dark:text-white"
+            />
+          </div>
+        ))}
+        <div className="flex flex-col space-y-1">
+          <label htmlFor="username" className="text-sm text-gray-700">
+            GitHub Username
+          </label>
           <input
-            key={field}
-            name={field}
-            value={form[field]}
-            onChange={handleChange}
-            placeholder={field}
+            id="username"
+            name="username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            placeholder="GitHub Username"
             className="p-2 border rounded text-black dark:text-white"
           />
-        ))}
-        <input
-          name="username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          placeholder="GitHub Username"
-          className="p-2 border rounded text-black dark:text-white"
-        />
-        <input
-          name="repo"
-          value={repo}
-          onChange={(e) => setRepo(e.target.value)}
-          placeholder="GitHub Repo"
-          className="p-2 border rounded text-black dark:text-white"
-        />
+        </div>
+        <div className="flex flex-col space-y-1">
+          <label htmlFor="repo" className="text-sm text-gray-700">
+            GitHub Repo
+          </label>
+          <input
+            id="repo"
+            name="repo"
+            value={repo}
+            onChange={(e) => setRepo(e.target.value)}
+            placeholder="GitHub Repo"
+            className="p-2 border rounded text-black dark:text-white"
+          />
+        </div>
       </div>
 
       <h3 className="text-lg font-semibold mt-6">Live Preview</h3>
       <div className="border p-4 rounded shadow-lg mt-4">
-        {/* Render the deploy button directly here */}
         <div className="flex flex-col space-y-2">
+          {/* Render the deploy button directly here */}
           <a
             href={deployUrl}
             target="_blank"
@@ -80,11 +111,21 @@ const DeployCardConfigurator: React.FC = () => {
           >
             {form.buttonText}
           </a>
-          <pre className="text-sm bg-gray-100 p-2 rounded">
-            {`[![${form.buttonText}](${badgeUrl})](${deployUrl})`}
-          </pre>
-          <pre className="text-sm bg-gray-100 p-2 rounded">
-            {`<a href="${deployUrl}"><img src="${badgeUrl}" alt="${form.buttonText}"></a>`}
+
+          <h4 className="font-medium mt-4">Generated Code</h4>
+          <pre className="text-sm bg-gray-100 p-2 rounded whitespace-pre-wrap break-words">
+            {`{
+  id: '${platform.id}',
+  name: '${platform.name}',
+  logo: '${platform.logo}',
+  color: '${platform.color}',
+  deployUrl: (username: string, repo: string) => 
+    \`${platform.deployUrl(username, repo)}\`,
+  buttonMarkdown: (username: string, repo: string) => 
+    \`[![Deploy with ${platform.name}](${badgeUrl})](${deployUrl})\`,
+  buttonHtml: (username: string, repo: string) => 
+    \`<a href="\${${deployUrl}}"><img src="\${${badgeUrl}}" alt="Deploy with ${platform.name}"></a>\`
+}`}
           </pre>
         </div>
       </div>
@@ -93,4 +134,5 @@ const DeployCardConfigurator: React.FC = () => {
 };
 
 export default DeployCardConfigurator;
+
 
