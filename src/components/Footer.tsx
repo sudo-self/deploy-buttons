@@ -11,7 +11,7 @@ const Footer: React.FC = () => {
         href="https:/deploy-buttons.web.app"
         target="_blank"
         rel="noopener noreferrer"
-        className="hover:underline text-cyan-500"
+        className="hover:underline text-indigo-600"
       >
       Deploy-Buttons
       </a>

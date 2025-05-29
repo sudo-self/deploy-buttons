@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { RocketIcon, SunIcon, MoonIcon } from 'lucide-react';
 import { MountainSnow } from 'lucide-react';
+import { Hammer } from 'lucide-react';
 
 interface HeaderProps {
   theme: 'dark' | 'light';
@@ -23,9 +24,9 @@ const Header: React.FC<HeaderProps> = ({ theme, onToggleTheme }) => {
             Deploy Buttons
           </h1>
         </div>
-        
-        <div className="flex items-center space-x-4">
-          {/* About Button */}
+          
+          <div className="flex items-center space-x-4">
+
           <button
             onClick={() => setShowAboutModal(true)}
             className={`p-2 rounded-lg transition-colors duration-200 ${
@@ -35,8 +36,11 @@ const Header: React.FC<HeaderProps> = ({ theme, onToggleTheme }) => {
             }`}
             aria-label="Open About modal"
           >
-            About
+            <Hammer className="w-5 h-5" aria-hidden="true" />
+            <span className="sr-only">About</span>
           </button>
+
+
 
           {/* Theme Toggle Button */}
           <button
@@ -85,7 +89,7 @@ const Header: React.FC<HeaderProps> = ({ theme, onToggleTheme }) => {
                   rel="noopener noreferrer"
                   className="hover:underline text-blue-400"
                 >
-                  deploy-buttons.web.app
+                  Deploy Buttons
                 </a>
               </div>
 
@@ -97,7 +101,7 @@ const Header: React.FC<HeaderProps> = ({ theme, onToggleTheme }) => {
                   rel="noopener noreferrer"
                   className="hover:underline text-green-400"
                 >
-                  Donations
+                 Buy me a Coffee!
                 </a>
               </div>
             </div>
@@ -109,6 +113,8 @@ const Header: React.FC<HeaderProps> = ({ theme, onToggleTheme }) => {
 };
 
 export default Header;
+
+
 
 
 
