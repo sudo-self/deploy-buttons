@@ -20,7 +20,7 @@ const Header: React.FC<HeaderProps> = ({ theme, onToggleTheme }) => {
         <div className="flex items-center space-x-2">
           <MountainSnow className="w-8 h-8 text-indigo-500" />
           <h1 className={`text-2xl font-bold ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
-            Repo Buttons
+            Deploy Buttons
           </h1>
         </div>
         
