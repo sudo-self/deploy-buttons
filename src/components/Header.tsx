@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { RocketIcon, SunIcon, MoonIcon } from 'lucide-react';
 import { MountainSnow } from 'lucide-react';
-import DeployCardConfigurator from './DeployCardConfigurator';
 
 interface HeaderProps {
   theme: 'dark' | 'light';
@@ -9,10 +8,10 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ theme, onToggleTheme }) => {
-  const [showConfigurator, setShowConfigurator] = useState(false);
+  const [showAboutModal, setShowAboutModal] = useState(false); 
 
-  const closeConfigurator = () => {
-    setShowConfigurator(false);  
+  const closeAboutModal = () => {
+    setShowAboutModal(false);
   };
 
   return (
@@ -26,19 +25,6 @@ const Header: React.FC<HeaderProps> = ({ theme, onToggleTheme }) => {
         </div>
         
         <div className="flex items-center space-x-4">
-          {/* Deploy Configurator Button */}
-          <button
-            onClick={() => setShowConfigurator(true)}
-            className={`p-2 rounded-lg transition-colors duration-200 ${
-              theme === 'dark' 
-                ? 'text-gray-400 hover:text-white hover:bg-gray-800' 
-                : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
-            }`}
-            aria-label="Open configurator"
-          >
-            <RocketIcon className="w-5 h-5" />
-          </button>
-
           {/* Theme Toggle Button */}
           <button
             onClick={onToggleTheme}
@@ -55,21 +41,66 @@ const Header: React.FC<HeaderProps> = ({ theme, onToggleTheme }) => {
               <MoonIcon className="w-5 h-5" />
             )}
           </button>
+
+          {/* About Button */}
+          <button
+            onClick={() => setShowAboutModal(true)}
+            className={`p-2 rounded-lg transition-colors duration-200 ${
+              theme === 'dark' 
+                ? 'text-gray-400 hover:text-white hover:bg-gray-800' 
+                : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
+            }`}
+            aria-label="Open About modal"
+          >
+            About
+          </button>
         </div>
       </div>
 
-      {/* Modal for Configurator */}
-      {showConfigurator && (
-        <div className="fixed inset-0 bg-black bg-opacity-40 z-50 flex items-center justify-center">
-          <div className="bg-white dark:bg-gray-900 p-6 rounded-lg max-w-2xl w-full relative">
+      {/* Modal for About */}
+      {showAboutModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-70 z-50 flex items-center justify-center">
+          <div className="bg-gray-900 rounded-xl shadow-lg max-w-xl w-full mx-4 my-10 p-6 text-white relative overflow-y-auto max-h-[90vh]">
             <button
-              className="absolute top-2 right-2 text-gray-500 hover:text-gray-800 dark:hover:text-white"
-              onClick={closeConfigurator} 
-              aria-label="Close configurator"
+              onClick={closeAboutModal}
+              className="absolute top-4 right-4 text-gray-400 hover:text-red-400 text-xl"
+              aria-label="Close About modal"
             >
-              ✕
+              &times;
             </button>
-            <DeployCardConfigurator />
+
+            <h2 className="text-2xl font-bold mb-4">Hello World!</h2>
+
+            <p className="mb-4">
+              Welcome to the Deploy Button Builder — a utility for generating deployment markdown and buttons,
+              developed by <span className="font-semibold">sudo-self</span>.
+            </p>
+
+            <div className="space-y-3">
+              <div className="flex items-center space-x-2">
+                <i className="fa-brands fa-github text-white text-lg" aria-hidden="true"></i>
+                <a
+                  href="https://github.com/sudo-self/repo-buttons"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:underline text-blue-400"
+                >
+                  source code
+                </a>
+              </div>
+
+              <div className="flex items-center space-x-2">
+                <i className="fa-solid fa-dollar-sign text-green-500 text-lg" aria-hidden="true"></i>
+                <a
+                  href="https://cash.app/$ilostmyipod"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:underline text-green-400"
+                >
+                  Donations
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       )}
@@ -78,6 +109,7 @@ const Header: React.FC<HeaderProps> = ({ theme, onToggleTheme }) => {
 };
 
 export default Header;
+
 
 
 
