@@ -36,19 +36,21 @@ export default function AboutModal() {
             </a>
           </div>
 
-          <div className="flex items-center space-x-2">
-            <i className="fa-solid fa-dollar-sign text-green-500 text-lg" aria-hidden="true"></i>
-            <a
-              href="https://cash.app/$ilostmyipod"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:underline text-green-400"
-            >
-             Donations
-            </a>
-          </div>
-          <p>BTC: 32WfTVZTzoJXSTdgfLer1Ad3SMVvjokkbX</p><br />
-          <p>ETH: 0xc0b2C8d8d63C333767Ce3Fad48649A6a14aE2037</p> 
+      <div className="flex items-center space-x-2">
+  <i className="fa-solid fa-dollar-sign text-green-500 text-lg" aria-hidden="true"></i>
+  <a
+    href="https://cash.app/$ilostmyipod"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="hover:underline text-green-400"
+  >
+    Donations
+  </a>
+</div>
+
+<p>BTC: 32WfTVZTzoJXSTdgfLer1Ad3SMVvjokkbX</p>
+<p>ETH: 0xc0b2C8d8d63C333767Ce3Fad48649A6a14aE2037</p>
+
         </div>
       </div>
     </div>
