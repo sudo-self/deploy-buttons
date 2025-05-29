@@ -131,29 +131,28 @@ export const deployPlatforms: DeployPlatform[] = [
       Remix on Glitch
     </a>`
 },
-  {
+ {
   id: 'firebase',
   name: 'Firebase Hosting',
-  logo: 'Firebase',
-  color: '#FFCA28',
+  logo: 'Flame',
+  color: '#FFA000',
   deployUrl: (username: string, repo: string) =>
-    `https://github.com/${username}/${repo}/deployments/activity_log?environment=github-pages`, // Firebase doesn't have a deploy URL, so we link to GitHub Actions
+    `https://console.firebase.google.com/project/_/hosting/sites`,
   buttonMarkdown: (username: string, repo: string) =>
-    `[![Deploy to Firebase Hosting](https://img.shields.io/badge/Deploy_to_Firebase-FFCA28?logo=firebase&logoColor=black&style=for-the-badge)](https://firebase.google.com/docs/hosting/github-integration)`,
-  buttonHtml: (_username: string, _repo: string) =>
+    `[![Deploy to Firebase](https://img.shields.io/badge/Deploy_to_Firebase-FFA000?logo=firebase&logoColor=white&style=for-the-badge)](https://console.firebase.google.com/project/_/hosting/sites)`,
+  buttonHtml: (username: string, repo: string) =>
     `<a
-      class="bg-[#FFCA28] text-black px-4 py-2 rounded flex items-center gap-2 hover:opacity-90"
-      href="https://firebase.google.com/docs/hosting/github-integration"
+      class="bg-[#FFA000] text-white px-4 py-2 rounded flex items-center gap-2 hover:opacity-90 whitespace-nowrap text-sm"
+      href="https://console.firebase.google.com/project/_/hosting/sites"
       target="_blank"
       rel="noopener noreferrer"
     >
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 351" class="w-5 h-5 fill-current">
-        <path d="M0 263 45.8 0 113.3 96.4 142.6 38.4 206 147.6 256 263 128 351z" />
+      <svg xmlns="http://www.w3.org/2000/svg" fill="white" viewBox="0 0 256 351" class="w-5 h-5 flex-shrink-0">
+        <path d="M1.92 270.47L50.29 2.67c.57-3.17 4.76-4.06 6.42-1.26L105.44 99.7c.37.63 1.32.5 1.46-.2L124.55 2.4c.39-2.2 3.33-2.9 4.76-1.13l123.24 171.4c1.07 1.45.04 3.5-1.74 3.5H141.5c-.72 0-1.34.49-1.5 1.19L116.63 347.3c-.46 2.02-3.26 2.49-4.34.69L1.99 274.09a2 2 0 01-.07-3.62z"/>
       </svg>
       Deploy to Firebase
     </a>`
 }
-
 ];
 
 
