@@ -130,7 +130,30 @@ export const deployPlatforms: DeployPlatform[] = [
       </svg>
       Remix on Glitch
     </a>`
+},
+  {
+  id: 'firebase',
+  name: 'Firebase Hosting',
+  logo: 'Firebase',
+  color: '#FFCA28',
+  deployUrl: (username: string, repo: string) =>
+    `https://github.com/${username}/${repo}/deployments/activity_log?environment=github-pages`, // Firebase doesn't have a deploy URL, so we link to GitHub Actions
+  buttonMarkdown: (username: string, repo: string) =>
+    `[![Deploy to Firebase Hosting](https://img.shields.io/badge/Deploy_to_Firebase-FFCA28?logo=firebase&logoColor=black&style=for-the-badge)](https://firebase.google.com/docs/hosting/github-integration)`,
+  buttonHtml: (_username: string, _repo: string) =>
+    `<a
+      class="bg-[#FFCA28] text-black px-4 py-2 rounded flex items-center gap-2 hover:opacity-90"
+      href="https://firebase.google.com/docs/hosting/github-integration"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 351" class="w-5 h-5 fill-current">
+        <path d="M0 263 45.8 0 113.3 96.4 142.6 38.4 206 147.6 256 263 128 351z" />
+      </svg>
+      Deploy to Firebase
+    </a>`
 }
+
 ];
 
 
