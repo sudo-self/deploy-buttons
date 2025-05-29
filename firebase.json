@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "site": "deploy-buttons",
     "public": "dist",
     "ignore": [
       "firebase.json",
