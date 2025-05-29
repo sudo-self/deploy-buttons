@@ -54,9 +54,36 @@ export default function CustomButtonBuilder() {
     a.click();
   };
 
-  if (!showModal) return null;
+ if (!showModal) return null;
 
-  return (
+return (
+  <div className="fixed inset-0 bg-black bg-opacity-70 z-50 flex items-center justify-center overflow-y-auto">
+    <div className="bg-gray-900 rounded-xl shadow-lg max-w-3xl w-full mx-4 my-10 p-6 text-white relative overflow-y-auto max-h-[90vh]">
+      <button
+        onClick={() => setShowModal(false)}
+        className="absolute top-4 right-4 text-gray-400 hover:text-red-400 text-xl"
+      >
+        &times;
+      </button>
+
+      {/* About Section */}
+      <div className="mb-6">
+        <h2 className="text-2xl font-bold text-blue-400 mb-2">About This Tool</h2>
+        <p className="text-gray-300">
+          Hi, I'm Jesse — an Army veteran and IT pro who builds tools for devs like this one.
+          Use this builder to instantly generate a deploy badge and markdown/HTML snippet
+          for your GitHub-based cloud deployment platform.
+        </p>
+        <p className="text-gray-500 text-sm mt-2">
+          ⚡ Supports custom logos, text, base URLs, and button colors. Export as JSON or copy code directly.
+        </p>
+      </div>
+
+      <h2 className="text-2xl font-bold mb-4">Custom Deploy Button Builder</h2>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {/* ...keep rest of your form and preview exactly as you had... */}
+
     <div className="fixed inset-0 bg-black bg-opacity-70 z-50 flex items-center justify-center overflow-y-auto">
       <div className="bg-gray-900 rounded-xl shadow-lg max-w-3xl w-full mx-4 my-10 p-6 text-white relative overflow-y-auto max-h-[90vh]">
         <button
