@@ -66,7 +66,6 @@ const DeployCardConfigurator: React.FC = () => {
               name={field}
               value={form[field]}
               onChange={handleChange}
-              placeholder={`Enter ${field}`}
               className="p-2 border rounded text-black dark:text-white"
             />
           </div>
@@ -80,7 +79,6 @@ const DeployCardConfigurator: React.FC = () => {
             name="username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-            placeholder="GitHub Username"
             className="p-2 border rounded text-black dark:text-white"
           />
         </div>
@@ -93,7 +91,6 @@ const DeployCardConfigurator: React.FC = () => {
             name="repo"
             value={repo}
             onChange={(e) => setRepo(e.target.value)}
-            placeholder="GitHub Repo"
             className="p-2 border rounded text-black dark:text-white"
           />
         </div>
@@ -113,8 +110,9 @@ const DeployCardConfigurator: React.FC = () => {
           </a>
 
           <h4 className="font-medium mt-4">Generated Code</h4>
-          <pre className="text-sm bg-gray-100 p-2 rounded whitespace-pre-wrap break-words">
-            {`{
+          <div className="overflow-auto max-h-60">
+            <pre className="text-sm bg-gray-100 p-2 rounded whitespace-pre-wrap break-words">
+              {`{
   id: '${platform.id}',
   name: '${platform.name}',
   logo: '${platform.logo}',
@@ -126,7 +124,8 @@ const DeployCardConfigurator: React.FC = () => {
   buttonHtml: (username: string, repo: string) => 
     \`<a href="\${${deployUrl}}"><img src="\${${badgeUrl}}" alt="Deploy with ${platform.name}"></a>\`
 }`}
-          </pre>
+            </pre>
+          </div>
         </div>
       </div>
     </div>
@@ -134,5 +133,6 @@ const DeployCardConfigurator: React.FC = () => {
 };
 
 export default DeployCardConfigurator;
+
 
 
