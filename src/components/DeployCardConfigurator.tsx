@@ -60,7 +60,7 @@ const DeployCardConfigurator: React.FC = () => {
             value={form[field]}
             onChange={handleChange}
             placeholder={field}
-            className="p-2 border rounded"
+            className="p-2 border rounded text-black dark:text-white" // text color adjustments
           />
         ))}
         <input
@@ -68,14 +68,14 @@ const DeployCardConfigurator: React.FC = () => {
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           placeholder="GitHub Username"
-          className="p-2 border rounded"
+          className="p-2 border rounded text-black dark:text-white" 
         />
         <input
           name="repo"
           value={repo}
           onChange={(e) => setRepo(e.target.value)}
           placeholder="GitHub Repo"
-          className="p-2 border rounded"
+          className="p-2 border rounded text-black dark:text-white" 
         />
       </div>
 
@@ -93,3 +93,4 @@ const DeployCardConfigurator: React.FC = () => {
 };
 
 export default DeployCardConfigurator;
+
