@@ -30,7 +30,7 @@ const DeployCardConfigurator: React.FC = () => {
     setForm((prevForm) => ({ ...prevForm, [name]: value }));
   };
 
-  // Generate the deploy URL based on the form and user input
+  // Generate based on user input
   const deployUrl = `${form.baseUrl}/${username}/${repo}`;
   const badgeUrl = `https://img.shields.io/badge/${encodeURIComponent(
     form.buttonText.replaceAll(' ', '_')
@@ -56,32 +56,46 @@ const DeployCardConfigurator: React.FC = () => {
       <h2 className="text-xl font-semibold">Deploy Card Configurator</h2>
 
       <div className="grid grid-cols-2 gap-4">
+      
         {(
           Object.keys(form) as (keyof DeployForm)[]
         ).map((field) => (
+          <div key={field} className="flex flex-col space-y-2">
+            <label htmlFor={field} className="text-sm font-medium">{field}</label>
+            <input
+              id={field}
+              name={field}
+              value={form[field as keyof DeployForm]}
+              onChange={handleChange}
+              placeholder={field}
+              className="p-2 border rounded text-black dark:text-white"
+            />
+          </div>
+        ))}
+
+        {/* Additional fields for username and repo */}
+        <div className="flex flex-col space-y-2">
+          <label htmlFor="username" className="text-sm font-medium">GitHub Username</label>
           <input
-            key={field}
-            name={field}
-            value={form[field]}
-            onChange={handleChange}
-            placeholder={field}
+            id="username"
+            name="username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            placeholder="GitHub Username"
             className="p-2 border rounded text-black dark:text-white"
           />
-        ))}
-        <input
-          name="username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          placeholder="GitHub Username"
-          className="p-2 border rounded text-black dark:text-white"
-        />
-        <input
-          name="repo"
-          value={repo}
-          onChange={(e) => setRepo(e.target.value)}
-          placeholder="GitHub Repo"
-          className="p-2 border rounded text-black dark:text-white"
-        />
+        </div>
+        <div className="flex flex-col space-y-2">
+          <label htmlFor="repo" className="text-sm font-medium">GitHub Repo</label>
+          <input
+            id="repo"
+            name="repo"
+            value={repo}
+            onChange={(e) => setRepo(e.target.value)}
+            placeholder="GitHub Repo"
+            className="p-2 border rounded text-black dark:text-white"
+          />
+        </div>
       </div>
 
       <h3 className="text-lg font-semibold mt-6">Live Preview</h3>
@@ -98,5 +112,6 @@ const DeployCardConfigurator: React.FC = () => {
 };
 
 export default DeployCardConfigurator;
+
 
 
