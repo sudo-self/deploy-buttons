@@ -1,208 +1,142 @@
-import React, { useState, ChangeEvent } from 'react';
+import React, { useState } from 'react';
 
-interface DeployForm {
-  id: string;
-  name: string;
-  logo: string;
-  color: string;
-  baseUrl: string;
-  buttonText: string;
-  badgeLogo: string;
-}
-
-const DeployCardConfigurator: React.FC = () => {
-  const [form, setForm] = useState<DeployForm>({
-    id: '', 
-    name: '', 
-    logo: '', 
-    color: '#000000', 
-    baseUrl: '', 
-    buttonText: 'Deploy', 
-    badgeLogo: '', 
+export default function CustomButtonBuilder() {
+  const [form, setForm] = useState({
+    id: '',
+    name: '',
+    logo: '',
+    color: '#000000',
+    baseUrl: '',
+    buttonText: 'Deploy',
+    badgeLogo: '',
   });
 
-  const [username, setUsername] = useState<string>('');
-  const [repo, setRepo] = useState<string>('');
-  const [error, setError] = useState<string>('');
+  const [username, setUsername] = useState('');
+  const [repo, setRepo] = useState('');
+  const [copied, setCopied] = useState(false);
+  const [showModal, setShowModal] = useState(true);
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setForm((prevForm) => ({ ...prevForm, [name]: value }));
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!username.trim() || !repo.trim()) {
-      setError('Both username and repository name are required');
-      return;
-    }
-    setError('');
-  };
-
-  // Generate the deploy URL based on the form and user input
   const deployUrl = `${form.baseUrl}${username}/${repo}`;
   const badgeUrl = `https://img.shields.io/badge/${encodeURIComponent(
     form.buttonText.replaceAll(' ', '_')
   )}-${form.color.replace('#', '')}?logo=${form.badgeLogo}&logoColor=white&style=for-the-badge`;
 
-  // The output format based on user input
-  const platform = {
-    id: form.id,
-    name: form.name,
-    logo: form.logo,
-    color: form.color,
-    deployUrl: (username: string, repo: string) =>
-      `${form.baseUrl}${username}/${repo}`,
-    buttonMarkdown: (username: string, repo: string) =>
-      `[![${form.buttonText}](${badgeUrl})](${deployUrl})`,
-    buttonHtml: (username: string, repo: string) =>
-      `<a href="${deployUrl}"><img src="${badgeUrl}" alt="${form.buttonText}"></a>`,
+  const buttonMarkdown = `[![${form.buttonText}](${badgeUrl})](${deployUrl})`;
+  const buttonHtml = `<a href="${deployUrl}"><img src="${badgeUrl}" alt="${form.buttonText}"></a>`;
+
+  const codeBlock = `{
+  id: '${form.id}',
+  name: '${form.name}',
+  logo: '${form.logo}',
+  color: '${form.color}',
+  deployUrl: (username, repo) => \`${form.baseUrl}\${username}/\${repo}\`,
+  buttonMarkdown: (username, repo) => \`[![${form.buttonText}](${badgeUrl})](${deployUrl})\`,
+  buttonHtml: (username, repo) => \`<a href="${deployUrl}"><img src="${badgeUrl}" alt="${form.buttonText}"></a>\`
+}`;
+
+  const copyToClipboard = async () => {
+    await navigator.clipboard.writeText(codeBlock);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 1500);
   };
 
+  const downloadJson = () => {
+    const json = {
+      ...form,
+      deployUrl: `${form.baseUrl}{username}/{repo}`,
+    };
+    const blob = new Blob([JSON.stringify(json, null, 2)], {
+      type: 'application/json',
+    });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'deploy-button-config.json';
+    a.click();
+  };
+
+  if (!showModal) return null;
+
   return (
-    <div className="w-full max-w-2xl mx-auto bg-gray-800 rounded-lg shadow-xl overflow-hidden transform transition-all hover:shadow-2xl duration-300">
-      <div className="px-6 py-8">
-        <div className="flex items-center justify-center mb-6">
-          <h2 className="text-2xl font-bold text-white">Custom Deploy Button Config</h2>
-        </div>
+    <div className="fixed inset-0 bg-black bg-opacity-70 z-50 flex items-center justify-center overflow-y-auto">
+      <div className="bg-gray-900 rounded-xl shadow-lg max-w-3xl w-full mx-4 my-10 p-6 text-white relative overflow-y-auto max-h-[90vh]">
+        <button
+          onClick={() => setShowModal(false)}
+          className="absolute top-4 right-4 text-gray-400 hover:text-red-400 text-xl"
+        >
+          &times;
+        </button>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div>
-            <label htmlFor="username" className="block text-sm font-medium text-gray-300 mb-1">
-              GitHub Username
-            </label>
-            <input
-              type="text"
-              id="username"
-              name="username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-200"
-            />
-          </div>
+        <h2 className="text-2xl font-bold mb-4">Custom Deploy Button Builder</h2>
 
-          <div>
-            <label htmlFor="repo" className="block text-sm font-medium text-gray-300 mb-1">
-              Repository Name
-            </label>
-            <input
-              type="text"
-              id="repo"
-              name="repo"
-              value={repo}
-              onChange={(e) => setRepo(e.target.value)}
-              className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-200"
-            />
-          </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="space-y-3">
+            {[
+              ['GitHub Username', username, setUsername, 'username'],
+              ['Repository Name', repo, setRepo, 'repo'],
+              ['Platform ID', form.id, (val: string) => setForm({ ...form, id: val }), 'id'],
+              ['Platform Name', form.name, (val: string) => setForm({ ...form, name: val }), 'name'],
+              ['Platform Logo', form.logo, (val: string) => setForm({ ...form, logo: val }), 'logo'],
+              ['Base Deploy URL', form.baseUrl, (val: string) => setForm({ ...form, baseUrl: val }), 'baseUrl'],
+              ['Button Text', form.buttonText, (val: string) => setForm({ ...form, buttonText: val }), 'buttonText'],
+              ['Badge Logo', form.badgeLogo, (val: string) => setForm({ ...form, badgeLogo: val }), 'badgeLogo'],
+            ].map(([label, value, setter, name]) => (
+              <div key={name}>
+                <label className="block text-sm font-medium text-gray-300 mb-1">{label}</label>
+                <input
+                  type="text"
+                  name={name as string}
+                  value={value as string}
+                  onChange={(e) => setter(e.target.value)}
+                  className="w-full px-3 py-2 rounded bg-gray-800 border border-gray-700 text-white"
+                />
+              </div>
+            ))}
 
-          <div>
-            <label htmlFor="buttonText" className="block text-sm font-medium text-gray-300 mb-1">
-              Button Text
-            </label>
-            <input
-              type="text"
-              id="buttonText"
-              name="buttonText"
-              value={form.buttonText}
-              onChange={handleChange}
-              placeholder="Button Text"
-              className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-200"
-            />
-          </div>
-
-          <div>
-            <label htmlFor="logo" className="block text-sm font-medium text-gray-300 mb-1">
-              Button Logo
-            </label>
-            <input
-              type="text"
-              id="logo"
-              name="logo"
-              value={form.logo}
-              onChange={handleChange}
-              placeholder="Logo Name"
-              className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-200"
-            />
-          </div>
-
-          <div>
-            <label htmlFor="color" className="block text-sm font-medium text-gray-300 mb-1">
-              Button Color
-            </label>
-            <input
-              type="color"
-              id="color"
-              name="color"
-              value={form.color}
-              onChange={handleChange}
-              className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-200"
-            />
-          </div>
-
-          <div>
-            <label htmlFor="badgeLogo" className="block text-sm font-medium text-gray-300 mb-1">
-              Badge Logo (Optional)
-            </label>
-            <input
-              type="text"
-              id="badgeLogo"
-              name="badgeLogo"
-              value={form.badgeLogo}
-              onChange={handleChange}
-              placeholder="Badge Logo"
-              className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-200"
-            />
-          </div>
-
-          {error && (
-            <div className="text-red-400 text-sm py-2 px-3 bg-red-900/30 rounded-md">
-              {error}
+            <div>
+              <label className="block text-sm font-medium text-gray-300 mb-1">Button Color</label>
+              <input
+                type="color"
+                value={form.color}
+                onChange={(e) => setForm({ ...form, color: e.target.value })}
+                className="w-full h-10 rounded bg-gray-800 border border-gray-700"
+              />
             </div>
-          )}
+          </div>
 
-          <button
-            type="submit"
-            className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all duration-200 transform hover:scale-[1.02]"
-          >
-            Generate Deploy Button
-          </button>
-        </form>
+          <div>
+            <h3 className="text-lg font-semibold mb-2">Live Preview</h3>
+            <div className="p-3 bg-gray-800 rounded mb-4">
+              <a href={deployUrl} target="_blank" rel="noopener noreferrer">
+                <img src={badgeUrl} alt={form.buttonText} />
+              </a>
+            </div>
 
-        <h3 className="text-lg font-semibold mt-6 text-white">Live Preview</h3>
-        <div className="border p-4 rounded shadow-lg mt-4 bg-gray-700 text-white">
-          <a
-            href={deployUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="p-2 border rounded bg-indigo-600 text-white"
-          >
-            {form.buttonText}
-          </a>
-
-          <h4 className="font-medium mt-4">Generated Code</h4>
-          <div className="overflow-auto max-h-60">
-            <pre className="text-sm bg-gray-800 p-2 rounded whitespace-pre-wrap break-words">
-              {`{
-  id: '${platform.id}',
-  name: '${platform.name}',
-  logo: '${platform.logo}',
-  color: '${platform.color}',
-  deployUrl: (username: string, repo: string) => 
-    \`${platform.deployUrl(username, repo)}\`,
-  buttonMarkdown: (username: string, repo: string) => 
-    \`[![${platform.buttonText}](${badgeUrl})](${deployUrl})\`,
-  buttonHtml: (username: string, repo: string) => 
-    \`<a href="\${${deployUrl}}"><img src="\${${badgeUrl}}" alt="${platform.buttonText}"></a>\`
-}`}
+            <h3 className="text-lg font-semibold mb-2">Generated Code</h3>
+            <pre className="bg-black p-3 rounded text-xs whitespace-pre-wrap max-h-[250px] overflow-auto border border-gray-700">
+              {codeBlock}
             </pre>
+
+            <div className="mt-4 flex space-x-3">
+              <button
+                onClick={copyToClipboard}
+                className="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded"
+              >
+                {copied ? 'Copied!' : 'Copy Code'}
+              </button>
+
+              <button
+                onClick={downloadJson}
+                className="bg-green-600 hover:bg-green-700 px-4 py-2 rounded"
+              >
+                Download JSON
+              </button>
+            </div>
           </div>
         </div>
       </div>
     </div>
   );
-};
-
-export default DeployCardConfigurator;
+}
 
 
 
