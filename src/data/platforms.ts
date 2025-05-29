@@ -109,7 +109,7 @@ export const deployPlatforms: DeployPlatform[] = [
     buttonHtml: (username: string, repo: string) => 
       `<a href="https://stackblitz.com/github/${username}/${repo}"><img src="https://developer.stackblitz.com/img/open_in_stackblitz.svg" alt="Open in StackBlitz"></a>`
   },
-  {
+{
   id: 'glitch',
   name: 'Glitch',
   logo: 'Fish',
@@ -131,5 +131,21 @@ export const deployPlatforms: DeployPlatform[] = [
       Remix on Glitch
     </a>`
 }
-
 ];
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
