@@ -12,17 +12,17 @@ interface DeployForm {
 
 const DeployCardConfigurator: React.FC = () => {
   const [form, setForm] = useState<DeployForm>({
-    id: 'vercel',
-    name: 'Vercel',
-    logo: 'Vercel',
-    color: '#000000',
-    baseUrl: 'https://vercel.com/new/clone?repository-url=https://github.com/',
-    buttonText: 'Deploy with Vercel',
-    badgeLogo: 'vercel',
+    id: '', 
+    name: '', 
+    logo: '', 
+    color: '#000000', 
+    baseUrl: '', 
+    buttonText: 'Deploy', 
+    badgeLogo: '', 
   });
 
-  const [username, setUsername] = useState<string>('username');
-  const [repo, setRepo] = useState<string>('repo');
+  const [username, setUsername] = useState<string>('');
+  const [repo, setRepo] = useState<string>('');
   const [error, setError] = useState<string>('');
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -63,7 +63,7 @@ const DeployCardConfigurator: React.FC = () => {
     <div className="w-full max-w-2xl mx-auto bg-gray-800 rounded-lg shadow-xl overflow-hidden transform transition-all hover:shadow-2xl duration-300">
       <div className="px-6 py-8">
         <div className="flex items-center justify-center mb-6">
-          <h2 className="text-2xl font-bold text-white">Deploy Button Config</h2>
+          <h2 className="text-2xl font-bold text-white">Custom Deploy Button Config</h2>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
@@ -139,6 +139,21 @@ const DeployCardConfigurator: React.FC = () => {
             />
           </div>
 
+          <div>
+            <label htmlFor="badgeLogo" className="block text-sm font-medium text-gray-300 mb-1">
+              Badge Logo (Optional)
+            </label>
+            <input
+              type="text"
+              id="badgeLogo"
+              name="badgeLogo"
+              value={form.badgeLogo}
+              onChange={handleChange}
+              placeholder="Badge Logo"
+              className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-200"
+            />
+          </div>
+
           {error && (
             <div className="text-red-400 text-sm py-2 px-3 bg-red-900/30 rounded-md">
               {error}
@@ -175,9 +190,9 @@ const DeployCardConfigurator: React.FC = () => {
   deployUrl: (username: string, repo: string) => 
     \`${platform.deployUrl(username, repo)}\`,
   buttonMarkdown: (username: string, repo: string) => 
-    \`[![Deploy with ${platform.name}](${badgeUrl})](${deployUrl})\`,
+    \`[![${platform.buttonText}](${badgeUrl})](${deployUrl})\`,
   buttonHtml: (username: string, repo: string) => 
-    \`<a href="\${${deployUrl}}"><img src="\${${badgeUrl}}" alt="Deploy with ${platform.name}"></a>\`
+    \`<a href="\${${deployUrl}}"><img src="\${${badgeUrl}}" alt="${platform.buttonText}"></a>\`
 }`}
             </pre>
           </div>
@@ -188,6 +203,7 @@ const DeployCardConfigurator: React.FC = () => {
 };
 
 export default DeployCardConfigurator;
+
 
 
 
