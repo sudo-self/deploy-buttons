@@ -32,7 +32,7 @@ export default function AboutModal() {
               rel="noopener noreferrer"
               className="hover:underline text-blue-400"
             >
-              source code
+              Source Code
             </a>
           </div>
 
@@ -44,9 +44,10 @@ export default function AboutModal() {
               rel="noopener noreferrer"
               className="hover:underline text-green-400"
             >
-              BTC: 32WfTVZTzoJXSTdgfLer1Ad3SMVvjokkbX
+             Donations
             </a>
           </div>
+          <p>BTC: 32WfTVZTzoJXSTdgfLer1Ad3SMVvjokkbX</p>
         </div>
       </div>
     </div>
