@@ -132,6 +132,18 @@ export const deployPlatforms: DeployPlatform[] = [
     `[![Deploy to Firebase](https://img.shields.io/badge/Deploy_to_Firebase-FFA000?logo=firebase&logoColor=white&style=for-the-badge)](https://console.firebase.google.com/project/_/hosting/sites)`,
   buttonHtml: (username: string, repo: string) =>
     `<a href="https://console.firebase.google.com/project/_/hosting/sites"><img src="https://img.shields.io/badge/Deploy_to_Firebase-FFA000?logo=firebase&logoColor=white&style=for-the-badge" alt="Deploy to Firebase"></a>`
+},
+  {
+  id: 'replit',
+  name: 'Replit',
+  logo: 'Zap',
+  color: '#667881',
+  deployUrl: (username: string, repo: string) =>
+    `https://replit.com/github/${username}/${repo}`,
+  buttonMarkdown: (username: string, repo: string) =>
+    `[![Run on Replit](https://img.shields.io/badge/Run_on_Replit-667881?logo=replit&logoColor=white&style=for-the-badge)](https://replit.com/github/${username}/${repo})`,
+  buttonHtml: (username: string, repo: string) =>
+    `<a href="https://replit.com/github/${username}/${repo}"><img src="https://img.shields.io/badge/Run_on_Replit-667881?logo=replit&logoColor=white&style=for-the-badge" alt="Run on Replit"></a>`
 }
 ];
 
