@@ -8,12 +8,12 @@ const Footer: React.FC = () => {
     <p className="text-cyan-700 text-sm">
       <HeartIcon className="inline-block w-4 h-4 text-red-500 mx-1" /> {' '}
       <a
-        href="https://repo-buttons.vercel.app"
+        href="https:/deploy-buttons.web.app"
         target="_blank"
         rel="noopener noreferrer"
         className="hover:underline text-cyan-500"
       >
-       deploy.sudo-self.com
+       deploy-buttons.web.app
       </a>
     </p>
     <div className="mt-2 text-gray-600 text-xs">
