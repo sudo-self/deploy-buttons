@@ -1,5 +1,5 @@
 import React, { useState, ChangeEvent } from 'react';
-import { DeployButton } from './DeployButton'; 
+import DeployButton from './DeployButton';
 
 interface DeployForm {
   id: string;
