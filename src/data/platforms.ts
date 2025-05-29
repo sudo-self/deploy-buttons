@@ -119,17 +119,7 @@ export const deployPlatforms: DeployPlatform[] = [
   buttonMarkdown: (username: string, repo: string) =>
     `[![Remix on Glitch](https://img.shields.io/badge/Remix_on_Glitch-EC0F8B?logo=glitch&logoColor=white&style=for-the-badge)](https://glitch.com/edit/#!/import/github/${username}/${repo})`,
   buttonHtml: (username: string, repo: string) =>
-    `<a
-      class="bg-[#EC0F8B] text-white px-4 py-2 rounded flex items-center gap-2 hover:opacity-90"
-      href="https://glitch.com/edit/#!/import/github/${username}/${repo}"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      <svg xmlns="http://www.w3.org/2000/svg" fill="white" viewBox="0 0 512 512" class="w-5 h-5">
-        <path d="M277.7 139.9h112.6l-112.6 85.7 112.6 85.8H277.7v57.3L467 307.8V204.2L277.7 82.1v57.8zm-43.3 232.2V82.1L45 204.2v103.6l189.4 114.1v-57.8H121.7l112.7-85.8-112.7-85.7h112.7v103.5z"/>
-      </svg>
-      Remix on Glitch
-    </a>`
+    `<a href="https://glitch.com/edit/#!/import/github/${username}/${repo}"><img src="https://img.shields.io/badge/Remix_on_Glitch-EC0F8B?logo=glitch&logoColor=white&style=for-the-badge" alt="Remix on Glitch"></a>`
 },
 {
   id: 'firebase',
