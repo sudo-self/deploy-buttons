@@ -21,8 +21,8 @@ const DeployCardConfigurator: React.FC = () => {
     badgeLogo: 'vercel',
   });
 
-  const [username, setUsername] = useState<string>('your-username');
-  const [repo, setRepo] = useState<string>('your-repo');
+  const [username, setUsername] = useState<string>('username');
+  const [repo, setRepo] = useState<string>('repo');
   const [error, setError] = useState<string>('');
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -63,7 +63,7 @@ const DeployCardConfigurator: React.FC = () => {
     <div className="w-full max-w-2xl mx-auto bg-gray-800 rounded-lg shadow-xl overflow-hidden transform transition-all hover:shadow-2xl duration-300">
       <div className="px-6 py-8">
         <div className="flex items-center justify-center mb-6">
-          <h2 className="text-2xl font-bold text-white">Deploy Card Configurator</h2>
+          <h2 className="text-2xl font-bold text-white">Deploy Button Config</h2>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
@@ -91,6 +91,50 @@ const DeployCardConfigurator: React.FC = () => {
               name="repo"
               value={repo}
               onChange={(e) => setRepo(e.target.value)}
+              className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-200"
+            />
+          </div>
+
+          <div>
+            <label htmlFor="buttonText" className="block text-sm font-medium text-gray-300 mb-1">
+              Button Text
+            </label>
+            <input
+              type="text"
+              id="buttonText"
+              name="buttonText"
+              value={form.buttonText}
+              onChange={handleChange}
+              placeholder="Button Text"
+              className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-200"
+            />
+          </div>
+
+          <div>
+            <label htmlFor="logo" className="block text-sm font-medium text-gray-300 mb-1">
+              Button Logo
+            </label>
+            <input
+              type="text"
+              id="logo"
+              name="logo"
+              value={form.logo}
+              onChange={handleChange}
+              placeholder="Logo Name"
+              className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-200"
+            />
+          </div>
+
+          <div>
+            <label htmlFor="color" className="block text-sm font-medium text-gray-300 mb-1">
+              Button Color
+            </label>
+            <input
+              type="color"
+              id="color"
+              name="color"
+              value={form.color}
+              onChange={handleChange}
               className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-200"
             />
           </div>
@@ -144,6 +188,7 @@ const DeployCardConfigurator: React.FC = () => {
 };
 
 export default DeployCardConfigurator;
+
 
 
 
