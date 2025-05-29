@@ -16,7 +16,7 @@ export default function AboutModal() {
           &times;
         </button>
 
-        <h2 className="text-2xl font-bold mb-4">About sudo-self</h2>
+        <h2 className="text-2xl font-bold mb-4">Hello World!</h2>
 
         <p className="mb-4">
           Welcome to the Deploy Button Builder — a utility for generating deployment markdown and buttons,
@@ -27,24 +27,24 @@ export default function AboutModal() {
           <div className="flex items-center space-x-2">
             <i className="fa-brands fa-github text-white text-lg" aria-hidden="true"></i>
             <a
-              href="https://github.com/sudo-self"
+              href="https://github.com/sudo-self/repo-buttons"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:underline text-blue-400"
             >
-              github.com/sudo-self
+              source code
             </a>
           </div>
 
           <div className="flex items-center space-x-2">
             <i className="fa-solid fa-dollar-sign text-green-500 text-lg" aria-hidden="true"></i>
             <a
-              href="https://cash.app/$ilostmyipad"
+              href="https://cash.app/$ilostmyipod"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:underline text-green-400"
             >
-              Donate
+              Donations
             </a>
           </div>
         </div>
