@@ -108,7 +108,7 @@ export const deployPlatforms: DeployPlatform[] = [
       `[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/${username}/${repo})`,
     buttonHtml: (username: string, repo: string) => 
       `<a href="https://stackblitz.com/github/${username}/${repo}"><img src="https://developer.stackblitz.com/img/open_in_stackblitz.svg" alt="Open in StackBlitz"></a>`
-  }
+  },
   {
   id: 'glitch',
   name: 'Glitch',
