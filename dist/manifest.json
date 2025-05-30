@@ -1,6 +1,6 @@
 {
-  "name": "Repo Buttons",
-  "short_name": "RepoButtons",
+  "name": "Deploy Buttons",
+  "short_name": "Deploy",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
