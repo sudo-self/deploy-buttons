@@ -44,7 +44,7 @@ const Header: React.FC<HeaderProps> = ({ theme, onToggleTheme }) => {
             }`}
             aria-label="Open About modal"
           >
-            <Hammer className="w-5 h-5 text-green-500" aria-hidden="true" />
+            <Hammer className="w-5 h-5 text-yellow-700" aria-hidden="true" />
             <span className="sr-only">About</span>
           </button>
 
