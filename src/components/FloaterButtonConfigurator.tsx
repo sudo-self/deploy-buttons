@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 declare global {
   interface Window {
@@ -11,12 +11,12 @@ export const FloaterButtonConfigurator: React.FC = () => {
   const [tooltip, setTooltip] = useState('');
   const [imageUrl, setImageUrl] = useState('');
   const [loaded, setLoaded] = useState(false);
+  const [downloadLink, setDownloadLink] = useState<string | null>(null);
 
   const handleCreateButton = () => {
     if (!iframeUrl || !tooltip || !imageUrl) return;
 
-    const script = document.createElement('script');
-    script.textContent = `
+    const scriptContent = `
       class FloaterButton {
         constructor(options = {}) {
           this.buttonId = options.buttonId || 'btn-qrtdogd-floating-button';
@@ -226,7 +226,17 @@ export const FloaterButtonConfigurator: React.FC = () => {
         imageUrl: "${imageUrl}"
       });
     `;
+
+    // Inject the script into the page
+    const script = document.createElement('script');
+    script.innerHTML = scriptContent;
     document.body.appendChild(script);
+
+    // Create the blob for the download link
+    const blob = new Blob([scriptContent], { type: 'application/javascript' });
+    const url = URL.createObjectURL(blob);
+
+    setDownloadLink(url);
     setLoaded(true);
   };
 
@@ -261,7 +271,16 @@ export const FloaterButtonConfigurator: React.FC = () => {
         >
           Create Button
         </button>
-        {loaded && <p className="text-green-400 text-sm mt-2">Floating button added to page.</p>}
+        {loaded && downloadLink && (
+          <a
+            href={downloadLink}
+            download="floater-button.js"
+            className="text-blue-500 mt-4 inline-block"
+          >
+            Download
+          </a>
+        )}
+        {loaded && <p className="text-green-400 text-sm mt-2">Floater added to page!</p>}
       </div>
     </div>
   );
