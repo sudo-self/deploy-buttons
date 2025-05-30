@@ -66,29 +66,42 @@ function App() {
           </p>
         </div>
         
-        {/* Form selector tabs */}
-        <div className="flex justify-center mb-8">
-          <div className={`inline-flex rounded-md shadow-sm ${theme === 'dark' ? 'bg-gray-800' : 'bg-gray-300'}`} role="group">
-            <button
-              type="button"
-              onClick={() => setActiveForm('deploy')}
-              className={`px-4 py-2 text-sm font-medium rounded-l-lg ${activeForm === 'deploy' 
-                ? (theme === 'dark' ? 'bg-indigo-600 text-white' : 'bg-indigo-500 text-white') 
-                : (theme === 'dark' ? 'bg-gray-700 text-gray-300' : 'bg-gray-200 text-gray-700')}`}
+          {/* Form selector tabs - Fixed */}
+          <div className="flex justify-center mb-8">
+            <div
+              className={`flex rounded-md shadow-sm ${theme === 'dark' ? 'bg-gray-800' : 'bg-gray-300'}`}
+              role="group"
             >
-              Deploy Buttons
-            </button>
-            <button
-              type="button"
-              onClick={() => setActiveForm('floater')}
-              className={`px-4 py-2 text-sm font-medium rounded-r-lg ${activeForm === 'floater' 
-                ? (theme === 'dark' ? 'bg-indigo-600 text-white' : 'bg-indigo-500 text-white') 
-                : (theme === 'dark' ? 'bg-gray-700 text-gray-300' : 'bg-gray-200 text-gray-700')}`}
-            >
-              Floater Button
-            </button>
+              <button
+                type="button"
+                onClick={() => setActiveForm('deploy')}
+                className={`px-6 py-3 text-sm font-medium transition-all duration-200 ${activeForm === 'deploy' 
+                  ? (theme === 'dark' 
+                      ? 'bg-indigo-600 text-white shadow-inner' 
+                      : 'bg-indigo-500 text-white shadow-inner') 
+                  : (theme === 'dark' 
+                      ? 'bg-gray-800 text-gray-300 hover:bg-gray-700' 
+                      : 'bg-gray-300 text-gray-700 hover:bg-gray-400')}`}
+                style={{ minWidth: '120px' }}
+              >
+                Deploy Buttons
+              </button>
+              <button
+                type="button"
+                onClick={() => setActiveForm('floater')}
+                className={`px-6 py-3 text-sm font-medium transition-all duration-200 ${activeForm === 'floater' 
+                  ? (theme === 'dark' 
+                      ? 'bg-indigo-600 text-white shadow-inner' 
+                      : 'bg-indigo-500 text-white shadow-inner') 
+                  : (theme === 'dark' 
+                      ? 'bg-gray-800 text-gray-300 hover:bg-gray-700' 
+                      : 'bg-gray-300 text-gray-700 hover:bg-gray-400')}`}
+                style={{ minWidth: '120px' }}
+              >
+                Floater Button
+              </button>
+            </div>
           </div>
-        </div>
         
         {/* Forms container with sliding animation */}
         <div className="relative overflow-hidden mb-16 min-h-[400px]">
