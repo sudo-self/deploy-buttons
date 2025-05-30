@@ -60,8 +60,8 @@ function App() {
           <h1 className="text-4xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">
             Deploy Button Generator
           </h1>
-          <p className={`${theme === 'dark' ? 'text-cyan-400' : 'text-cyan-700'} max-w-2xl mx-auto`}>
-           A web app that creates one-click deploy buttons for your GitHub repositories. Enter your username and repository name to generate deploy buttons that you can use in your Project. buutons include markdown and html structure.
+          <p className={`${theme === 'dark' ? 'text-cyan-500' : 'text-cyan-700'} max-w-2xl mx-auto`}>
+           A web app that creates one-click deploy buttons for your GitHub repositories. Enter your username and repository name to generate your deploy buttons.
           </p>
         </div>
         
