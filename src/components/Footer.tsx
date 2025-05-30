@@ -24,12 +24,12 @@ const Footer: React.FC = () => {
         
           {' '}
           <a
-            href="https://deploy-buttons.web.app"
+            href="https://repo-buttons.vercel.app"
             target="_blank"
             rel="noopener noreferrer"
             className="hover:underline text-cyan-700 dark:text-green-500"
           >
-          deploy-buttons.web.app
+          repo-buttons.vercel.app
           </a>
         </p>
 

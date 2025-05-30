@@ -9,8 +9,9 @@ import {
   Hammer,
   Github,
   DollarSign,
+  Copy,
+  Check
 } from 'lucide-react';
-import { FloaterButtonConfigurator } from './FloaterButtonConfigurator';
 
 interface HeaderProps {
   theme: 'dark' | 'light';
@@ -19,10 +20,17 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ theme, onToggleTheme }) => {
   const [showAboutModal, setShowAboutModal] = useState(false);
-  const [showFloaterConfig, setShowFloaterConfig] = useState(false);
+  const [showNpxPanel, setShowNpxPanel] = useState(false);
+  const [copied, setCopied] = useState(false);
 
   const closeAboutModal = () => {
     setShowAboutModal(false);
+  };
+
+  const copyCommand = () => {
+    navigator.clipboard.writeText('npx floater-xyz');
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
   };
 
   return (
@@ -32,24 +40,24 @@ const Header: React.FC<HeaderProps> = ({ theme, onToggleTheme }) => {
         <div className="flex items-center space-x-2">
           <MountainSnow className="w-8 h-8 text-indigo-500" />
           <h1 className={`text-2xl font-bold ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
-            Deploy Buttons
+            Repo Buttons
           </h1>
         </div>
 
         {/* Controls */}
         <div className="flex items-center space-x-4">
-          {/* Floater Config Button */}
+          {/* NPX Command Panel Button */}
           <button
-            onClick={() => setShowFloaterConfig(!showFloaterConfig)}
+            onClick={() => setShowNpxPanel(!showNpxPanel)}
             className={`p-2 rounded-lg transition-colors duration-200 ${
               theme === 'dark'
                 ? 'text-gray-400 hover:text-white hover:bg-gray-800'
                 : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
             }`}
-            aria-label="Open Floater Configurator"
+            aria-label="Show NPX command"
           >
             <RocketIcon className="w-5 h-5 text-pink-500" aria-hidden="true" />
-            <span className="sr-only">Configure Floater</span>
+            <span className="sr-only">NPX Command</span>
           </button>
 
           {/* About Button */}
@@ -62,7 +70,7 @@ const Header: React.FC<HeaderProps> = ({ theme, onToggleTheme }) => {
             }`}
             aria-label="Open About modal"
           >
-            <Hammer className="w-5 h-5 text-yellow-700" aria-hidden="true" />
+            <Hammer className="w-5 h-5 text-green-600" aria-hidden="true" />
             <span className="sr-only">About</span>
           </button>
 
@@ -85,30 +93,47 @@ const Header: React.FC<HeaderProps> = ({ theme, onToggleTheme }) => {
         </div>
       </div>
 
-          {/* Floater Configurator Panel */}
-          {showFloaterConfig && (
-                                 <div className="border border-gray-900 dark:border-gray-200 absolute top-full right-4 mt-2 w-[420px] max-w-full bg-gray-200 dark:bg-gray-900 text-black dark:text-gray-200 shadow-xl rounded-lg p-4 z-50">
-
-              <div className="flex justify-between items-center mb-2">
-                {/* Left side: icon and label */}
-                <div className="flex items-center space-x-2">
-                  <MountainSnow className="w-8 h-8 text-indigo-500" />
-                  <h3 className="text-md font-semibold">Floater Buttons</h3>
-                </div>
-
-                {/* Close button */}
-                <button
-                  onClick={() => setShowFloaterConfig(false)}
-                  className="text-red-500 hover:text-red-700 font-bold text-xl"
-                >
-                  ×
-                </button>
-              </div>
-
-              <FloaterButtonConfigurator />
+      {/* NPX Command Panel */}
+      {showNpxPanel && (
+        <div className="border border-gray-200 dark:border-gray-700 absolute top-full right-4 mt-2 w-[320px] max-w-full bg-white dark:bg-gray-900 text-black dark:text-gray-200 shadow-xl rounded-lg p-4 z-50">
+          <div className="flex justify-between items-center mb-3">
+            <div className="flex items-center space-x-2">
+              <RocketIcon className="w-5 h-5 text-pink-500" />
+              <h3 className="text-md font-semibold">Command Line</h3>
             </div>
-          )}
+            <button
+              onClick={() => setShowNpxPanel(false)}
+              className="text-gray-500 hover:text-red-500 font-bold text-xl"
+            >
+              ×
+            </button>
+          </div>
 
+          <div className="bg-gray-100 dark:bg-gray-800 p-3 rounded-md flex justify-between items-center">
+            <code className="text-sm font-mono text-gray-800 dark:text-gray-200">
+              npx floater-xyz
+            </code>
+            <button
+              onClick={copyCommand}
+              className={`p-1.5 rounded ${
+                theme === 'dark' 
+                  ? 'bg-gray-700 hover:bg-gray-600' 
+                  : 'bg-gray-300 hover:bg-gray-400'
+              }`}
+              aria-label="Copy command"
+            >
+              {copied ?
+                <Check className="w-4 h-4 text-green-500" /> :
+                <Copy className="w-4 h-4 text-gray-500 dark:text-gray-400" />
+              }
+            </button>
+          </div>
+
+          <p className="mt-3 text-sm text-gray-600 dark:text-gray-400">
+            Run this command to setup a floater button in your project.
+          </p>
+        </div>
+      )}
 
       {/* Modal for About */}
       {showAboutModal && (
@@ -122,10 +147,10 @@ const Header: React.FC<HeaderProps> = ({ theme, onToggleTheme }) => {
               &times;
             </button>
 
-            <h2 className="text-2xl font-bold mb-4">Deploy Buttons</h2>
+            <h2 className="text-2xl font-bold mb-4">Repo Buttons</h2>
 
             <p className="mb-4">
-              Welcome to Deploy Buttons — a utility web app for generating one-click deploy buttons for your GitHub repo. You can feature these deploy buttons in your project or docs. Developed by <span className="font-semibold">sudo-self</span>.
+              Welcome to Repo Buttons — a utility web app for generating buttons from GitHub repos and existing URLs. Developed by <span className="font-semibold">sudo-self</span>.
             </p>
 
             <div className="space-y-3">
