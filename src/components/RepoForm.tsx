@@ -50,7 +50,7 @@ const RepoForm: React.FC<RepoFormProps> = ({ formState, onSubmit }) => {
   };
 
   return (
-    <div className="w-full max-w-2xl mx-auto bg-gray-800 rounded-lg shadow-xl overflow-hidden transform transition-all hover:shadow-2xl duration-300">
+    <div className="w-full max-w-2xl mx-auto bg-gray-900 border border-gray-200 rounded-lg shadow-xl overflow-hidden transform transition-all hover:shadow-2xl duration-300">
       <div className="px-6 py-8">
         <div className="flex items-center justify-center mb-6">
           <GithubIcon className="w-10 h-10 text-white mr-2" />

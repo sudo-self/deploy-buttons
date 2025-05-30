@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState } from 'react';
 import {
   RocketIcon,
@@ -8,6 +10,7 @@ import {
   Github,
   DollarSign,
 } from 'lucide-react';
+import { FloaterButtonConfigurator } from './FloaterButtonConfigurator';
 
 interface HeaderProps {
   theme: 'dark' | 'light';
@@ -16,13 +19,14 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ theme, onToggleTheme }) => {
   const [showAboutModal, setShowAboutModal] = useState(false);
+  const [showFloaterConfig, setShowFloaterConfig] = useState(false);
 
   const closeAboutModal = () => {
     setShowAboutModal(false);
   };
 
   return (
-    <header className={`w-full py-6 px-4 ${theme === 'dark' ? 'bg-gray-900' : 'bg-gray-200'}`}>
+    <header className={`w-full py-6 px-4 relative z-40 ${theme === 'dark' ? 'bg-gray-900' : 'bg-gray-200'}`}>
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         {/* Logo */}
         <div className="flex items-center space-x-2">
@@ -34,6 +38,20 @@ const Header: React.FC<HeaderProps> = ({ theme, onToggleTheme }) => {
 
         {/* Controls */}
         <div className="flex items-center space-x-4">
+          {/* Floater Config Button */}
+          <button
+            onClick={() => setShowFloaterConfig(!showFloaterConfig)}
+            className={`p-2 rounded-lg transition-colors duration-200 ${
+              theme === 'dark'
+                ? 'text-gray-400 hover:text-white hover:bg-gray-800'
+                : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
+            }`}
+            aria-label="Open Floater Configurator"
+          >
+            <RocketIcon className="w-5 h-5 text-pink-500" aria-hidden="true" />
+            <span className="sr-only">Configure Floater</span>
+          </button>
+
           {/* About Button */}
           <button
             onClick={() => setShowAboutModal(true)}
@@ -67,6 +85,31 @@ const Header: React.FC<HeaderProps> = ({ theme, onToggleTheme }) => {
         </div>
       </div>
 
+          {/* Floater Configurator Panel */}
+          {showFloaterConfig && (
+                                 <div className="border border-gray-900 dark:border-gray-200 absolute top-full right-4 mt-2 w-[420px] max-w-full bg-gray-200 dark:bg-gray-900 text-black dark:text-gray-200 shadow-xl rounded-lg p-4 z-50">
+
+              <div className="flex justify-between items-center mb-2">
+                {/* Left side: icon and label */}
+                <div className="flex items-center space-x-2">
+                  <MountainSnow className="w-8 h-8 text-indigo-500" />
+                  <h3 className="text-md font-semibold">Floater Buttons</h3>
+                </div>
+
+                {/* Close button */}
+                <button
+                  onClick={() => setShowFloaterConfig(false)}
+                  className="text-red-500 hover:text-red-700 font-bold text-xl"
+                >
+                  ×
+                </button>
+              </div>
+
+              <FloaterButtonConfigurator />
+            </div>
+          )}
+
+
       {/* Modal for About */}
       {showAboutModal && (
         <div className="fixed inset-0 bg-black bg-opacity-70 z-50 flex items-center justify-center">
@@ -81,10 +124,9 @@ const Header: React.FC<HeaderProps> = ({ theme, onToggleTheme }) => {
 
             <h2 className="text-2xl font-bold mb-4">Deploy Buttons</h2>
 
-                          <p className="mb-4">
-                            Welcome to Deploy Buttons — a utility web app for generating one-click deploy buttons for your GitHub repo. You can feature these deploy buttons in your project or docs. Developed by <span className="font-semibold">sudo-self</span>.
-                          </p>
-
+            <p className="mb-4">
+              Welcome to Deploy Buttons — a utility web app for generating one-click deploy buttons for your GitHub repo. You can feature these deploy buttons in your project or docs. Developed by <span className="font-semibold">sudo-self</span>.
+            </p>
 
             <div className="space-y-3">
               <div className="flex items-center space-x-2">
