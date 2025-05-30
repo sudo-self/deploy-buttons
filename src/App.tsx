@@ -61,7 +61,7 @@ function App() {
             Deploy Button Generator
           </h1>
           <p className={`${theme === 'dark' ? 'text-cyan-500' : 'text-cyan-700'} max-w-2xl mx-auto`}>
-           A web app that creates one-click deploy buttons for your GitHub repositories. Enter your username and repository name to generate your deploy buttons.
+          A utility web app for generating one-click deploy buttons for your GitHub repo. You can feature these deploy buttons in your project or docs.
           </p>
         </div>
         
