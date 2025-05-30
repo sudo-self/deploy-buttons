@@ -29,7 +29,6 @@ export const FloaterButtonConfigurator: React.FC = () => {
           this.createButton();
           this.createPopup();
           this.createTooltip();
-
           this.attachEventListeners();
         }
 
@@ -152,7 +151,7 @@ export const FloaterButtonConfigurator: React.FC = () => {
             this.openPopup();
           });
 
-          document.querySelector(\`#\${this.popupId} .btn-qrtdogd-close-button\`).addEventListener('click', () => this.closePopup());
+          document.querySelector(\`#\${this.popupId} .btn-qrtdogd-close-button\`)?.addEventListener('click', () => this.closePopup());
 
           this.button.addEventListener('mouseover', () => {
             this.tooltip.classList.add('visible');
@@ -169,15 +168,11 @@ export const FloaterButtonConfigurator: React.FC = () => {
         }
 
         openPopup() {
-          if (this.popup) {
-            this.popup.style.display = 'block';
-          }
+          if (this.popup) this.popup.style.display = 'block';
         }
 
         closePopup() {
-          if (this.popup) {
-            this.popup.style.display = 'none';
-          }
+          if (this.popup) this.popup.style.display = 'none';
         }
 
         startDrag(e) {
@@ -193,12 +188,11 @@ export const FloaterButtonConfigurator: React.FC = () => {
         }
 
         onMouseMove(e) {
-          if (this.isDragging) {
-            const newLeft = e.clientX - this.offsetX;
-            const newTop = e.clientY - this.offsetY;
-            this.button.style.left = \`\${newLeft}px\`;
-            this.button.style.top = \`\${newTop}px\`;
-          }
+          if (!this.isDragging) return;
+          const newLeft = e.clientX - this.offsetX;
+          const newTop = e.clientY - this.offsetY;
+          this.button.style.left = \`\${newLeft}px\`;
+          this.button.style.top = \`\${newTop}px\`;
         }
 
         onMouseUp() {
@@ -206,13 +200,12 @@ export const FloaterButtonConfigurator: React.FC = () => {
         }
 
         onTouchMove(e) {
-          if (this.isDragging) {
-            const touch = e.touches[0];
-            const newLeft = touch.clientX - this.offsetX;
-            const newTop = touch.clientY - this.offsetY;
-            this.button.style.left = \`\${newLeft}px\`;
-            this.button.style.top = \`\${newTop}px\`;
-          }
+          if (!this.isDragging) return;
+          const touch = e.touches[0];
+          const newLeft = touch.clientX - this.offsetX;
+          const newTop = touch.clientY - this.offsetY;
+          this.button.style.left = \`\${newLeft}px\`;
+          this.button.style.top = \`\${newTop}px\`;
         }
 
         onTouchEnd() {
@@ -227,22 +220,21 @@ export const FloaterButtonConfigurator: React.FC = () => {
       });
     `;
 
-    // Inject the script into the page
     const script = document.createElement('script');
     script.innerHTML = scriptContent;
     document.body.appendChild(script);
 
-    // Create the blob for the download link
     const blob = new Blob([scriptContent], { type: 'application/javascript' });
     const url = URL.createObjectURL(blob);
-
     setDownloadLink(url);
     setLoaded(true);
   };
 
   return (
     <div className="dark:bg-gray-900 dark:text-gray-200 p-6 max-w-lg mx-auto">
-      <h2 className="text-2xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">Floater Button Generator</h2>
+      <h2 className="text-2xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">
+        Floater Button Generator
+      </h2>
       <div className="flex flex-col gap-4">
         <input
           type="text"
@@ -275,14 +267,28 @@ export const FloaterButtonConfigurator: React.FC = () => {
           <a
             href={downloadLink}
             download="floater-button.js"
-            className="text-blue-500 mt-4 inline-block"
+            className="text-indigo-400 text-sm mt-2 inline-block"
           >
-            Download
+            Download Button
           </a>
         )}
-        {loaded && <p className="text-green-400 text-sm mt-2">Floater added to page!</p>}
+        {loaded && (
+          <div className="mt-4">
+            <h3 className="text-sm font-semibold">Add the button</h3>
+            <code className="text-sm block mt-1">
+              {'<script src="./floater-button.js"></script>'}
+            </code>
+          </div>
+        )}
+        {loaded && (
+          <p className="text-cyan-500 text-sm mt-2">Floater added to page!</p>
+        )}
       </div>
     </div>
   );
 };
+
+
+
+
 
