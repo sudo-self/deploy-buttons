@@ -89,7 +89,7 @@ function App() {
               style={{ minWidth: '140px' }}
             >
               {formType === 'deploy' ? 'Deploy Buttons' :
-               formType === 'floater' ? 'Floater Button' : 'Button Creator'}
+               formType === 'floater' ? 'Floater Button' : 'Image Button'}
               {activeForm === formType && (
                 <span className="absolute bottom-0 left-0 right-0 h-1 bg-indigo-400"></span>
               )}
