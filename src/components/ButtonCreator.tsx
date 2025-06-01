@@ -25,7 +25,7 @@ export function ButtonCreator() {
   });
 
   const [isGeneratingImage, setIsGeneratingImage] = useState(false);
-  const previewRef = useRef<HTMLButtonElement>(null);
+  const previewRef = useRef<HTMLAnchorElement>(null);
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -34,82 +34,95 @@ export function ButtonCreator() {
     setButtonConfig((prev) => ({ ...prev, [name]: value }));
   };
 
-  const generateImage = async () => {
-    if (!buttonConfig.label.trim()) {
-      alert('Please enter button text first');
-      return;
-    }
+    const generateImage = async () => {
+      if (!buttonConfig.label.trim()) {
+        alert('Please enter button text first');
+        return;
+      }
 
-    setIsGeneratingImage(true);
-    try {
-      const response = await fetch(
-        `https://text-to-image.jessejesse.workers.dev?prompt=${encodeURIComponent(
-          buttonConfig.label
-        )}`
-      );
+      setIsGeneratingImage(true);
+      try {
+        const response = await fetch(
+          `https://text-to-image.jessejesse.workers.dev?prompt=${encodeURIComponent(buttonConfig.label)}`
+        );
 
-      if (!response.ok) throw new Error('Image generation failed');
-      const blob = await response.blob();
-      const imageUrl = URL.createObjectURL(blob);
-      setButtonConfig((prev) => ({ ...prev, imageUrl }));
-    } catch (error) {
-      alert('Image generation failed.');
-    } finally {
-      setIsGeneratingImage(false);
-    }
-  };
+        if (!response.ok) throw new Error('Image generation failed');
+        const blob = await response.blob();
+        const imageUrl = URL.createObjectURL(blob);
 
-  const generateButtonCode = () => {
-    const anim = buttonConfig.animationType;
-    const style = `
-      <style>
-        @keyframes pulse {
-          0%, 100% { transform: scale(1); }
-          50% { transform: scale(1.1); }
-        }
-        @keyframes bounce {
-          0%, 100% { transform: translateY(0); }
-          50% { transform: translateY(-10px); }
-        }
-        @keyframes shake {
-          0%, 100% { transform: translateX(0); }
-          50% { transform: translateX(5px); }
-        }
-        .custom-button {
-          display: inline-block;
-          padding: 12px 24px;
-          border-radius: 8px;
-          border: 2px solid ${buttonConfig.borderColor};
-          background: ${
-            buttonConfig.imageUrl
-              ? `url('${buttonConfig.imageUrl}') center/cover`
-              : '#4f46e5'
-          };
-          color: white;
-          font-weight: bold;
-          cursor: pointer;
-          ${
-            anim !== 'none' ? `animation: ${anim} 1s infinite;` : ''
+      
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          const base64 = reader.result as string;
+          setButtonConfig((prev) => ({ ...prev, imageUrl: base64 }));
+        };
+        reader.readAsDataURL(blob);
+      } catch (error) {
+        alert('Image generation failed.');
+      } finally {
+        setIsGeneratingImage(false);
+      }
+    };
+
+
+    const generateButtonCode = () => {
+      const anim = buttonConfig.animationType;
+      const hasImage = buttonConfig.imageUrl?.trim();
+      const style = `
+        <style>
+          @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
           }
-        }
-      </style>`;
+          @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+          }
+          @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+          }
+          body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f9fafb;
+          }
+          .custom-button {
+            display: inline-block;
+            padding: 12px 24px;
+            border-radius: 8px;
+            border: 2px solid ${buttonConfig.borderColor};
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            ${hasImage ? `background: url('${buttonConfig.imageUrl}') center / cover no-repeat;` : 'background: #4f46e5;'}
+            ${anim !== 'none' ? `animation: ${anim} 1s infinite;` : ''}
+          }
+        </style>
+      `;
 
-    return `
-      <!DOCTYPE html>
-      <html lang="en">
-      <head>
-        <meta charset="UTF-8" />
-        <title>Custom Button</title>
-        ${style}
-      </head>
-      <body>
-        <a href="${buttonConfig.link}" class="custom-button">
-          ${buttonConfig.label}
-        </a>
-      </body>
-      </html>
-    `;
-  };
+      return `
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <title>Custom Button</title>
+          ${style}
+        </head>
+        <body>
+          <a href="${buttonConfig.link}" class="custom-button">
+            ${buttonConfig.label}
+          </a>
+        </body>
+        </html>
+      `;
+    };
+
 
   const downloadButton = () => {
     const html = generateButtonCode();
@@ -134,7 +147,8 @@ export function ButtonCreator() {
           }
           @keyframes shake {
             0%, 100% { transform: translateX(0); }
-            50% { transform: translateX(5px); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
           }
         `}
       </style>
@@ -146,7 +160,7 @@ export function ButtonCreator() {
       <div className="space-y-4">
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-            Button Text
+            Enter a prompt to generate button image
           </label>
           <input
             name="label"
@@ -158,7 +172,7 @@ export function ButtonCreator() {
 
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-            Link URL
+            Link button will open on-click
           </label>
           <input
             name="link"
@@ -168,37 +182,41 @@ export function ButtonCreator() {
           />
         </div>
 
-        <div className="flex items-center justify-between gap-4">
           <div className="flex flex-col">
             <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
               Border Color
             </label>
-            <input
-              type="color"
-              name="borderColor"
-              value={buttonConfig.borderColor}
-              onChange={handleInputChange}
-              className="w-12 h-10 rounded-lg mt-1"
-            />
+            <div className="flex items-center gap-2 mt-1">
+              <input
+                type="color"
+                name="borderColor"
+                value={buttonConfig.borderColor}
+                onChange={handleInputChange}
+                className="w-10 h-10 rounded"
+              />
+              <span className="px-2 py-1 text-xs font-mono rounded border border-gray-300 dark:border-gray-600 dark:text-white">
+                {buttonConfig.borderColor}
+              </span>
+            </div>
           </div>
 
-          <div className="flex-1">
-            <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
-              Animation
-            </label>
-            <select
-              name="animationType"
-              value={buttonConfig.animationType}
-              onChange={handleInputChange}
-              className="w-full mt-1 p-2 rounded border dark:bg-gray-800 dark:text-white"
-            >
-              {animationOptions.map((a) => (
-                <option key={a.value} value={a.value}>
-                  {a.label}
-                </option>
-              ))}
-            </select>
-          </div>
+
+        <div>
+          <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
+            Animation
+          </label>
+          <select
+            name="animationType"
+            value={buttonConfig.animationType}
+            onChange={handleInputChange}
+            className="w-full mt-1 p-2 rounded border dark:bg-gray-800 dark:text-white"
+          >
+            {animationOptions.map((a) => (
+              <option key={a.value} value={a.value}>
+                {a.label}
+              </option>
+            ))}
+          </select>
         </div>
 
         <button
@@ -218,7 +236,7 @@ export function ButtonCreator() {
         )}
 
         <div className="p-4 border rounded-lg bg-gray-50 dark:bg-gray-800 border-gray-300 dark:border-gray-600">
-          <h3 className="text-center font-medium mb-2 dark:text-white">Preview</h3>
+          <h3 className="text-center font-medium mb-2 dark:text-white">Live Preview</h3>
           <div className="flex justify-center">
             <a
               href={buttonConfig.link}
@@ -242,9 +260,9 @@ export function ButtonCreator() {
 
         <button
           onClick={downloadButton}
-          className="w-full p-3 mt-4 bg-green-600 text-white rounded font-semibold hover:bg-green-700"
+          className="w-full p-3 mt-4 bg-green-700 text-white rounded font-semibold hover:bg-pink-700"
         >
-          Download HTML
+          Download
         </button>
       </div>
     </div>
