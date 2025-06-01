@@ -23,7 +23,7 @@ export function ButtonCreator() {
     animationType: 'none',
     link: 'https://example.com'
   });
-  
+
   const [isGeneratingImage, setIsGeneratingImage] = useState(false);
   const [isDownloading, setIsDownloading] = useState(false);
   const previewRef = useRef<HTMLButtonElement>(null);
@@ -43,9 +43,9 @@ export function ButtonCreator() {
     try {
       const workerUrl = 'https://text-to-image.jessejesse.workers.dev';
       const response = await fetch(`${workerUrl}?prompt=${encodeURIComponent(buttonConfig.label)}`);
-      
+
       if (!response.ok) throw new Error('Image generation failed');
-      
+
       const blob = await response.blob();
       const imageUrl = URL.createObjectURL(blob);
       setButtonConfig(prev => ({ ...prev, imageUrl }));
@@ -100,7 +100,7 @@ export function ButtonCreator() {
       const buttonCode = generateButtonCode();
       const blob = new Blob([buttonCode], { type: 'text/html' });
       const url = URL.createObjectURL(blob);
-      
+
       const a = document.createElement('a');
       a.href = url;
       a.download = 'button.html';
@@ -116,43 +116,37 @@ export function ButtonCreator() {
   };
 
   return (
-    <div className={`max-w-md mx-auto p-6 rounded-xl ${document.documentElement.classList.contains('dark') ? 'bg-gray-900' : 'bg-white'} shadow-lg`}>
+    <div className="max-w-sm md:max-w-md lg:max-w-lg mx-auto p-6 rounded-xl bg-white dark:bg-gray-900 shadow-lg">
       <h2 className="text-2xl font-bold mb-6 text-center bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">
         Create Image Button
       </h2>
-      
+
       <div className="space-y-4">
         <div>
-          <label className={`block mb-2 font-medium ${document.documentElement.classList.contains('dark') ? 'text-gray-300' : 'text-gray-700'}`}>
-            Button Text
-          </label>
+          <label className="block mb-2 font-medium text-gray-700 dark:text-gray-300">Button Text</label>
           <input
             type="text"
             name="label"
             value={buttonConfig.label}
             onChange={handleInputChange}
-            className={`w-full p-3 rounded-lg border ${document.documentElement.classList.contains('dark') ? 'bg-gray-700 border-gray-600 text-white' : 'bg-white border-gray-300 text-gray-900'}`}
+            className="w-full p-3 rounded-lg border bg-white border-gray-300 text-gray-900 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
           />
         </div>
 
         <div>
-          <label className={`block mb-2 font-medium ${document.documentElement.classList.contains('dark') ? 'text-gray-300' : 'text-gray-700'}`}>
-            Link URL
-          </label>
+          <label className="block mb-2 font-medium text-gray-700 dark:text-gray-300">Link URL</label>
           <input
             type="text"
             name="link"
             value={buttonConfig.link}
             onChange={handleInputChange}
-            className={`w-full p-3 rounded-lg border ${document.documentElement.classList.contains('dark') ? 'bg-gray-700 border-gray-600 text-white' : 'bg-white border-gray-300 text-gray-900'}`}
+            className="w-full p-3 rounded-lg border bg-white border-gray-300 text-gray-900 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
           />
         </div>
 
         <div className="flex items-center gap-4">
           <div>
-            <label className={`block mb-2 font-medium ${document.documentElement.classList.contains('dark') ? 'text-gray-300' : 'text-gray-700'}`}>
-              Border Color
-            </label>
+            <label className="block mb-2 font-medium text-gray-700 dark:text-gray-300">Border Color</label>
             <div className="flex items-center gap-2">
               <input
                 type="color"
@@ -161,21 +155,17 @@ export function ButtonCreator() {
                 onChange={handleInputChange}
                 className="w-10 h-10 cursor-pointer rounded-lg overflow-hidden border border-gray-300 dark:border-gray-600"
               />
-              <span className={`text-sm ${document.documentElement.classList.contains('dark') ? 'text-gray-400' : 'text-gray-600'}`}>
-                {buttonConfig.borderColor}
-              </span>
+              <span className="text-sm text-gray-600 dark:text-gray-400">{buttonConfig.borderColor}</span>
             </div>
           </div>
 
           <div className="flex-1">
-            <label className={`block mb-2 font-medium ${document.documentElement.classList.contains('dark') ? 'text-gray-300' : 'text-gray-700'}`}>
-              Animation
-            </label>
+            <label className="block mb-2 font-medium text-gray-700 dark:text-gray-300">Animation</label>
             <select
               name="animationType"
               value={buttonConfig.animationType}
               onChange={handleInputChange}
-              className={`w-full p-3 rounded-lg border ${document.documentElement.classList.contains('dark') ? 'bg-gray-700 border-gray-600 text-white' : 'bg-white border-gray-300 text-gray-900'}`}
+              className="w-full p-3 rounded-lg border bg-white border-gray-300 text-gray-900 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
             >
               {animationOptions.map(option => (
                 <option key={option.value} value={option.value}>{option.label}</option>
@@ -185,9 +175,7 @@ export function ButtonCreator() {
         </div>
 
         <div>
-          <label className={`block mb-2 font-medium ${document.documentElement.classList.contains('dark') ? 'text-gray-300' : 'text-gray-700'}`}>
-            Background Image
-          </label>
+          <label className="block mb-2 font-medium text-gray-700 dark:text-gray-300">Background Image</label>
           <div className="flex gap-2">
             <button
               onClick={generateImage}
@@ -206,7 +194,7 @@ export function ButtonCreator() {
               />
               <button
                 onClick={() => setButtonConfig(prev => ({ ...prev, imageUrl: '' }))}
-                className={`absolute top-2 right-2 p-1 rounded-full ${document.documentElement.classList.contains('dark') ? 'bg-red-600 hover:bg-red-700' : 'bg-red-500 hover:bg-red-600'} text-white`}
+                className="absolute top-2 right-2 p-1 rounded-full bg-red-500 hover:bg-red-600 dark:bg-red-600 dark:hover:bg-red-700 text-white"
               >
                 ×
               </button>
@@ -214,8 +202,8 @@ export function ButtonCreator() {
           )}
         </div>
 
-        <div className={`p-6 rounded-xl ${document.documentElement.classList.contains('dark') ? 'bg-gray-700' : 'bg-gray-100'} border ${document.documentElement.classList.contains('dark') ? 'border-gray-600' : 'border-gray-300'}`}>
-          <h3 className={`text-center mb-4 font-medium ${document.documentElement.classList.contains('dark') ? 'text-gray-300' : 'text-gray-700'}`}>Preview</h3>
+        <div className="p-6 rounded-xl bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600">
+          <h3 className="text-center mb-4 font-medium text-gray-700 dark:text-gray-300">Preview</h3>
           <div className="flex justify-center">
             <button
               ref={previewRef}
@@ -243,3 +231,4 @@ export function ButtonCreator() {
     </div>
   );
 }
+
